@@ -24,26 +24,34 @@ class PreprocessJobs:
         clean_commands = {}
         for job_name, job_value in yml_content.items():
             job_value = strip_spaces(job_value)
-            cmd_list = split_lines(job_value)
-            clean_commands[job_name] = cmd_list
+            job_list = split_lines(job_value)
+            clean_commands[job_name] = job_list
 
         return clean_commands
 
 
 class RunJobs(PreprocessJobs):
-    def run_commands(self):
+
+    def _unravel_commands(self):
         cmd = self.clean_commands()
+        job_names = cmd.keys()
+        job_values = cmd.values()
 
-        for job_name, job_value in cmd.items():
-            echo_underlines(job_name)
-            for line in job_value:
-                if not line == job_name:
-                    val ==
+        unraveled_job_values = []
 
-                else:
-                    subprocess.run(line, shell=True)
+        for job_name, job_list in cmd.items():
+            for job_line in job_list:
+                if job_line in job_names:
+                    job_line = cmd[job_line]
+                unraveled_job_values.append(job_line)
+            cmd[job_name] = unraveled_job_values
+        return cmd
 
+    def run_commands(self):
+        cmd = self._unravel_commands()
 
+        print(cmd)
+        
 obj = RunJobs()
 obj.run_commands()
 # subprocess.run(args='echo "hi"', shell=True)
