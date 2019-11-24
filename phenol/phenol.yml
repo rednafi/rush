@@ -1,0 +1,11 @@
+job1: | # this pipe indicates one command per line
+    ls
+    echo "hi"
+
+job2: |
+    ls | grep ph
+
+    
+job3: |
+    job1
+    job2
