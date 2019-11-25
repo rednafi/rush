@@ -1,0 +1,10 @@
+job1: | # this pipe indicates one command per line
+    echo "job1 is running"
+
+job2: |
+    echo "job2 is running"
+
+job3: |
+    echo "job3 is running"
+    job1
+    job2
