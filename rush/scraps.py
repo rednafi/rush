@@ -1,8 +1,8 @@
 a = {
-    "job1": ['echo "job1 is running"'],
-    "job2": ['echo "job2 is running"'],
-    "job3": ["job1", "job2"],
-    "job4": ["job3"],
+    "task_1": ['echo "task1 is running"', "ls"],
+    "task_2": ['echo "task2 is running"'],
+    "task_3": ["task1", "task2"],
+    "task_4": ["task3"],
 }
 
 
