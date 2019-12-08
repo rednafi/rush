@@ -21,7 +21,7 @@ colorama.init(strip=False)
 @click.option(
     "--color", nargs=1, type=click.STRING, default="green", help="Color to use."
 )
-@click.option("--char", nargs=1, type=click.STRING, default="--", help="Prefix char.")
+@click.option("--char", nargs=1, type=click.STRING, default="->", help="Prefix char.")
 def entrypoint1(*, char, read_stderr, no_color, color):
     """Indents and echoes string with a specific pipe."""
 
@@ -33,11 +33,11 @@ def entrypoint1(*, char, read_stderr, no_color, color):
     for line in pipe:
         if line:
             title = str(click.style(line, fg=color))
+            mul = len(title)
             print(f" {char} ", end="")
             print(title.rstrip())
         else:
             print(f" {char} ", end="")
 
-import subprocess
-m = entrypoint1()
-subprocess.run(m)
+
+entrypoint1()
