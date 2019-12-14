@@ -6,7 +6,6 @@ import sys
 
 import colorama
 import click
-from rush.script import run_all_tasks
 
 # Don't strip colors.
 colorama.init(strip=False)
@@ -40,8 +39,4 @@ def entrypoint(s, *, char, read_stderr, no_color, color):
         except TypeError:
             title = line
 
-        print(f" + {title}: ")
-
-
-if __name__ == "__main__":
-    entrypoint('s')
+        print(f"{title}")

@@ -28,7 +28,10 @@ def _clean_tasks(yml_content):
     return cleaned_tasks
 
 
-def _run_task_chunk(cleaned_tasks):
+def _run_task_chunk(cleaned_tasks, *task_names):
+    if task_names:
+        cleaned_tasks = {k: cleaned_tasks[k] for k in task_names}
+
     for task_name, task_chunk in cleaned_tasks.items():
 
         print_task_name = f"Executing {task_name}"
@@ -39,10 +42,11 @@ def _run_task_chunk(cleaned_tasks):
         for task in task_chunk:
             run_task(task)
 
+
 def run_all_tasks():
     yml_content = _read_yml()
     cleaned_tasks = _clean_tasks(yml_content)
-    _run_task_chunk(cleaned_tasks)
+    _run_task_chunk(cleaned_tasks, 'task_1', 'task_2')
 
 
 # from pprint import pprint
@@ -53,3 +57,4 @@ def run_all_tasks():
 # pprint(yml_content)
 # pprint(clean_tasks)
 # pprint(_run_commands(clean_tasks))
+run_all_tasks()
