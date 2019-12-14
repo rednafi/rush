@@ -7,10 +7,3 @@ task_2: |
 
 task_3: |
     echo "task_3 subtask1 is running"
-
-task_4: |
-        task1
-        task2
-
-task5: |
-    task3
