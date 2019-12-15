@@ -47,12 +47,15 @@ def _filter_tasks(cleaned_tasks, *filter_names):
         return cleaned_tasks
 
 
-def _term_beautify(task_name):
+def _term_beautify(task_name, is_color=True):
     task_name = f"{task_name}:"
-    task_name = str(click.style(task_name, fg="yellow"))
     separator_len = len(task_name) + 3
-    separator = str(click.style("=", fg="green")) * separator_len
-    
+    separator = "=" * separator_len
+
+    if is_color:
+        task_name = str(click.style(task_name, fg="yellow"))
+        separator = str(click.style(separator, fg="green"))
+
     print("")
     print(task_name)
     print(separator)
