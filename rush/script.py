@@ -1,13 +1,14 @@
-import yaml
-from collections import OrderedDict
 import os
 import subprocess
 import sys
-import colorama
-import click
-
+from collections import OrderedDict
 from typing import Dict, List
-from rush.utils import strip_spaces, split_lines, echo_underlines, run_task
+
+import click
+import colorama
+import yaml
+
+from rush.utils import echo_underlines, run_task, split_lines, strip_spaces
 
 # Don't strip colors.
 colorama.init(strip=False)
@@ -57,6 +58,7 @@ def _term_beautify(task_name, is_color=True):
         separator = str(click.style(separator, fg="green"))
 
     print("")
+    print("")
     print(task_name)
     print(separator)
 
@@ -75,4 +77,4 @@ def run_all_tasks(*filter_names):
     _run_task_chunk(filtered_tasks)
 
 
-run_all_tasks("task_1", "task_3")
+run_all_tasks()

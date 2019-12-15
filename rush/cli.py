@@ -1,11 +1,11 @@
+import sys
+
 import click
+import colorama
 
 # + Executing random/entrypoints:
 
-import sys
 
-import colorama
-import click
 
 # Don't strip colors.
 colorama.init(strip=False)
