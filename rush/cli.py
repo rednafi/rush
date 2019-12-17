@@ -20,5 +20,3 @@ colorama.init(strip=False)
 def entrypoint(*, filter_names, print_command, capture_error):
     run_all_tasks(*filter_names, is_print_cmd=True, capture_error=False)
 
-
-entrypoint()
