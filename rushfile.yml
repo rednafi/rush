@@ -6,4 +6,9 @@ task_2: |
     echo "task2 is running"
 
 task_3: |
+    ls -a
     echo "task_3 subtask1 is running"
+
+task_4: |
+    set -euo pipefail
+    ls

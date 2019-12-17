@@ -8,7 +8,7 @@ import click
 import colorama
 import yaml
 
-from rush.utils import echo_underlines, run_task, split_lines, strip_spaces
+from rush.utils import  run_task, split_lines, strip_spaces
 
 # Don't strip colors.
 colorama.init(strip=False)
@@ -48,25 +48,34 @@ def _filter_tasks(cleaned_tasks, *filter_names):
         return cleaned_tasks
 
 
-def _term_beautify(task_name, is_color=True):
-    task_name = f"{task_name}:"
-    separator_len = len(task_name) + 3
-    separator = "=" * separator_len
 
-    if is_color:
-        task_name = str(click.style(task_name, fg="yellow"))
-        separator = str(click.style(separator, fg="green"))
+def _term_beautify(task_name, is_color=True, is_task_name=True):
+    if is_task_name:
+        task_name = f"{task_name}:"
+        separator_len = len(task_name) + 3
+        separator = "=" * separator_len
 
-    print("")
-    print("")
-    print(task_name)
-    print(separator)
+        if is_color:
+            task_name = str(click.style(task_name, fg="yellow"))
+            separator = str(click.style(separator, fg="green"))
+
+        click.echo("")
+        click.echo("")
+        click.echo(task_name)
+        click.echo(separator)
+    else:
+        if is_color:
+            task_name = str(click.style(task_name, fg="blue"))
+        click.echo('')
+        click.echo(f'|-> {task_name}')
 
 
-def _run_task_chunk(cleaned_tasks):
+def _run_task_chunk(cleaned_tasks, print_task=True):
     for task_name, task_chunk in cleaned_tasks.items():
         _term_beautify(task_name)
         for task in task_chunk:
+            if print_task:
+                _term_beautify(task, is_task_name=False)
             run_task(task)
 
 
