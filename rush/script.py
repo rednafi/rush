@@ -8,7 +8,7 @@ import click
 import colorama
 import yaml
 
-from rush.utils import  run_task, split_lines, strip_spaces
+from rush.utils import run_task, split_lines, strip_spaces
 
 # Don't strip colors.
 colorama.init(strip=False)
@@ -48,7 +48,6 @@ def _filter_tasks(cleaned_tasks, *filter_names):
         return cleaned_tasks
 
 
-
 def _term_beautify(task_name, is_color=True, is_task_name=True):
     if is_task_name:
         task_name = f"{task_name}:"
@@ -66,8 +65,10 @@ def _term_beautify(task_name, is_color=True, is_task_name=True):
     else:
         if is_color:
             task_name = str(click.style(task_name, fg="blue"))
-        click.echo('')
-        click.echo(f'|-> {task_name}')
+            separator = "=>"
+            separator = str(click.style(separator, fg="blue"))
+        click.echo("")
+        click.echo(f"{separator} {task_name}")
 
 
 def _run_task_chunk(cleaned_tasks, print_task=True):
