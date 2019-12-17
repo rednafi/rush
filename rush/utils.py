@@ -14,17 +14,18 @@ def split_lines(st):
     return st.split("\n")
 
 
-def run_task(command, interactive=True, capture_error=True):
+def run_task(command, capture_error=True):
 
-    std_out = sys.stdout if interactive else subprocess.PIPE
-    std_in = sys.stdin if interactive else subprocess.PIPE
+    # std_out = sys.stdout if interactive else subprocess.PIPE
+    # std_in = sys.stdin if interactive else subprocess.PIPE
 
-    if interactive and capture_error:
+    if capture_error:
         proc = subprocess.check_output(command, universal_newlines=True, shell=True)
-        print(proc)
+        click.echo(proc)
     else:
-        subprocess.run(
-            command, stdout=std_out, stdin=std_in, universal_newlines=True, shell=True
-        )
+        proc = subprocess.run(
+            command, universal_newlines=True, capture_output=True, shell=True
+        ).stdout
+        click.echo(proc)
 
-#run_task('eco "hi"')
+run_task('echo "hi"', capture_error=True)
