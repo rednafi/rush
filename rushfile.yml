@@ -11,4 +11,5 @@ task_3: |
 
 task_4: |
     set -euo pipefail
+    sudo ls
     ls

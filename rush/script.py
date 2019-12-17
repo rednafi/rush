@@ -59,7 +59,6 @@ def _term_beautify(task_name, is_color=True, is_task_name=True):
             separator = str(click.style(separator, fg="green"))
 
         click.echo("")
-        click.echo("")
         click.echo(task_name)
         click.echo(separator)
     else:
@@ -67,7 +66,6 @@ def _term_beautify(task_name, is_color=True, is_task_name=True):
             task_name = str(click.style(task_name, fg="blue"))
             separator = "=>"
             separator = str(click.style(separator, fg="blue"))
-        click.echo("")
         click.echo(f"{separator} {task_name}")
 
 
@@ -77,14 +75,18 @@ def _run_task_chunk(cleaned_tasks, print_task=True):
         for task in task_chunk:
             if print_task:
                 _term_beautify(task, is_task_name=False)
-            run_task(task)
+            try:
+                run_task(task)
+            except subprocess.CalledProcessError as e:
+                click.echo(e)
+                sys.exit(1)
 
 
 def run_all_tasks(*filter_names):
     yml_content = _read_yml()
     cleaned_tasks = _clean_tasks(yml_content)
     filtered_tasks = _filter_tasks(cleaned_tasks, *filter_names)
-    _run_task_chunk(filtered_tasks)
+    _run_task_chunk(filtered_tasks, print_task=False)
 
 
 run_all_tasks()
