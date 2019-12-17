@@ -90,4 +90,4 @@ def run_all_tasks(*filter_names, is_print_cmd, capture_error):
     _run_task_chunk(filtered_tasks, is_print_cmd, capture_error)
 
 
-run_all_tasks(is_print_cmd=True, capture_error=False)
+

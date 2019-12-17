@@ -28,4 +28,3 @@ def run_task(command, capture_error=True):
         ).stdout
         click.echo(proc)
 
-run_task('echo "hi"', capture_error=True)
