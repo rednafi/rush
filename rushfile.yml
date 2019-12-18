@@ -3,6 +3,7 @@ task_1: |
     ls
 
 task_2: |
+    task_1
     echo "task2 is running"
 
 task_3: |
