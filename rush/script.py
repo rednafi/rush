@@ -70,24 +70,21 @@ def _term_beautify(task_name, is_color=True, is_task_name=True):
         click.echo(f"{separator} {task_name}")
 
 
-def _run_task_chunk(cleaned_tasks, is_print_cmd=True, capture_error=True):
+def _run_task_chunk(cleaned_tasks, print_cmd=True, capture_err=True):
     for task_name, task_chunk in cleaned_tasks.items():
         _term_beautify(task_name)
         for cmd in task_chunk:
-            if is_print_cmd and cmd.startswith('#') is False:
+            if print_cmd and cmd.startswith('#') is False:
                 _term_beautify(cmd, is_task_name=False)
             try:
-                run_task(cmd, capture_error)
+                run_task(cmd, capture_err)
             except subprocess.CalledProcessError as e:
                 click.echo(e)
                 sys.exit(1)
 
 
-def run_all_tasks(*filter_names, is_print_cmd, capture_error):
+def run_all_tasks(*filter_names, print_cmd, capture_err):
     yml_content = _read_yml()
     cleaned_tasks = _clean_tasks(yml_content)
     filtered_tasks = _filter_tasks(cleaned_tasks, *filter_names)
-    _run_task_chunk(filtered_tasks, is_print_cmd, capture_error)
-
-
-
+    _run_task_chunk(filtered_tasks, print_cmd, capture_err)
