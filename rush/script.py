@@ -8,10 +8,12 @@ import click
 import colorama
 import yaml
 
-from rush.utils import run_task, split_lines, strip_spaces
+from rush.utils import run_task, split_lines, strip_spaces, check_shell
 
 # Don't strip colors.
 colorama.init(strip=False)
+
+use_shell = check_shell()
 
 
 def _read_yml():
@@ -74,10 +76,10 @@ def _run_task_chunk(cleaned_tasks, print_cmd=True, capture_err=True):
     for task_name, task_chunk in cleaned_tasks.items():
         _term_beautify(task_name)
         for cmd in task_chunk:
-            if print_cmd and cmd.startswith('#') is False:
+            if print_cmd and cmd.startswith("#") is False:
                 _term_beautify(cmd, is_task_name=False)
             try:
-                run_task(cmd, capture_err)
+                run_task(use_shell, cmd, capture_err)
             except subprocess.CalledProcessError as e:
                 click.echo(e)
                 sys.exit(1)

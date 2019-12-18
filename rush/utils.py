@@ -14,17 +14,31 @@ def split_lines(st):
     return st.split("\n")
 
 
-def run_task(command, capture_error=True):
+def check_shell():
+    try:
+        sub = subprocess.check_output(["which", "-a", "sh"], universal_newlines=True)
+        output = sub.split("\n")
+        if "/bin/sh" in output:
+            return "/bin/sh"
+        if "/usr/bin/sh" in output:
+            return "/usr/bin/sh"
 
-    # std_out = sys.stdout if interactive else subprocess.PIPE
-    # std_in = sys.stdin if interactive else subprocess.PIPE
+    except subprocess.CalledProcessError:
+        click.echo(
+            click.style("No shell found. You need a shell to use Rush.", fg="red")
+        )
+        sys.exit()
 
-    if capture_error:
-        proc = subprocess.check_output(command, universal_newlines=True, shell=True)
+
+def run_task(use_shell, command, capture_err=True):
+
+    if capture_err:
+        proc = subprocess.check_output(
+            [use_shell, "-c", command], universal_newlines=True
+        )
         click.echo(proc)
     else:
         proc = subprocess.run(
-            command, universal_newlines=True, capture_output=True, shell=True
+            [use_shell, "-c", command], universal_newlines=True, capture_output=True
         ).stdout
         click.echo(proc)
-
