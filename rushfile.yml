@@ -11,5 +11,8 @@ task_3: |
     echo "task_3 subtask1 is running"
 
 task_4: |
-    ls | grep cli
+    ls | grep "ce"
     ls > he.txt1
+
+task_0: |
+

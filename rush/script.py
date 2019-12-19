@@ -119,7 +119,7 @@ class RunTasks(PrepTasks):
                 task_name = str(click.style(task_name, fg="yellow"))
                 separator = str(click.style(separator, fg="green"))
 
-            click.echo("")
+            #click.echo("")
             click.echo(task_name)
             click.echo(separator)
 

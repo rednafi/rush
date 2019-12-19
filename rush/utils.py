@@ -3,6 +3,7 @@ import sys
 import time
 import os
 import click
+from shlex import quote as shlex_quote
 
 
 def strip_spaces(st):
@@ -29,15 +30,28 @@ def check_shell():
         sys.exit()
 
 
-def run_task(use_shell, command, capture_err=True):
+def cmd_quote(script: str, quote=False):
+    """form up the command with shlex and execute"""
+    maybe_quote = shlex_quote if quote else str
+    return (f"-c", maybe_quote(script))
 
-    if capture_err:
-        proc = subprocess.check_output(
-            [use_shell, "-c", command], universal_newlines=True
-        )
-        click.echo(proc)
-    else:
-        proc = subprocess.run(
-            [use_shell, "-c", command], universal_newlines=True, capture_output=True
-        ).stdout
-        click.echo(proc)
+
+def run_task(use_shell, command, interactive=True, capture_err=True):
+    std_out = sys.stdout if interactive else subprocess.PIPE
+    std_in = sys.stdin if interactive else subprocess.PIPE
+
+    res = subprocess.run(
+        [use_shell, "-c", command],
+        stdout=std_out,
+        stdin=std_in,
+        stderr=std_out,
+        universal_newlines=True,
+    )
+    click.echo('')
+
+    # click.echo(res.stdout)
+    # click.echo(res.stderr)
+
+
+
+# print(run_task(check_shell(), "ls | grep cli"))
