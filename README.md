@@ -31,6 +31,21 @@ task_4: |
     ls > he.txt1
 ```
 
+* See all the available options
+    ```
+    $ rush --help
+    ```
+    This should show:
+    ```
+    Usage: rush [OPTIONS] [FILTER_NAMES]...
+
+    Options:
+    --color / --no-color           Option to color the commands.
+    --print-cmd / --not-print-cmd  Option to print the executing commands.
+    --capture-err / --ignore-err   Option to capture errors
+    -h, --help                     Show this message and exit.
+    ```
+
 * Run all tasks
     ```
     $ rush
@@ -41,18 +56,22 @@ task_4: |
     $ rush task_1 task_4
     ```
 
-* Run tasks while hiding individual commands
+* Run tasks without printing individual commands
     ```
     $ rush task_1 task_2 --not-print-cmd
     ```
 
 * Run tasks ignoring errors
     ```
-    $ rush --not-capture-err
+    $ rush --ignore-err
     ```
+
+* Remove color
+    ```
+    $ rush --no-color
+    ```
+
 
 ## Quirks
 
 * Rush runs all the commands using `/bin/sh` (not bash or anything else). So shell specific scripts might throw error.
-
-* Currently task chaining is not supported. 
