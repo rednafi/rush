@@ -15,12 +15,12 @@ def split_lines(st):
 
 def check_shell():
     try:
-        sub = subprocess.check_output(["which", "-a", "bash"], universal_newlines=True)
+        sub = subprocess.check_output(["which", "-a", "sh"], universal_newlines=True)
         output = sub.split("\n")
-        if "/bin/bash" in output:
-            return "/bin/bash"
+        if "/bin/sh" in output:
+            return "/bin/sh"
         if "/usr/bin/bash" in output:
-            return "/usr/bin/bash"
+            return "/usr/bin/sh"
 
     except subprocess.CalledProcessError:
         click.echo(

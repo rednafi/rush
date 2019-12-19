@@ -1,7 +1,17 @@
-# RUSH
-~~ A Minimalistic Shell-Task Runner ~~
+<div align="center">
+
+# Rush
+A Minimalistic Shell-Task Runner
+</div>
 
 Run all your task automation shell commands from a single `rushfile.yml` file.
+
+## Features
+* By default, runs commands in interactive mode
+* Option to show or not-show individual commands in a task chunk as they get executed
+* Option to highlight or not-highlight individual task names and task commands
+* Option to catch or ignore command errors
+* Command chaining is supported (See the example `rushfile.yml` where `task_2` is chained to `task_1`)
 
 ## Installation
 
@@ -11,25 +21,25 @@ $ pip install rush-cli
 
 ## Workflow
 
-Here is a rushfile. It needs to reside in the root directory:
+* Here is an example `rushfile.yml`. It needs to reside in the root directory:
 
-``` yml
-task_1: |
-    echo "task1 is running"
-    ls
+    ``` yml
+    task_1: |
+        echo "task1 is running"
+        ls
 
-task_2: |
-    echo "task2 is running"
+    task_2: |
+        echo "task2 is running"
 
-task_3: |
-    sudo -euo pipefail
-    ls -a
-    echo "task_3 subtask1 is running"
+    task_3: |
+        sudo -euo pipefail
+        ls -a
+        echo "task_3 subtask1 is running"
 
-task_4: |
-    ls | grep cli
-    ls > he.txt1
-```
+    task_4: |
+        ls | grep cli
+        ls > he.txt1
+    ```
 
 * See all the available options
     ```
