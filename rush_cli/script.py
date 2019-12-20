@@ -8,7 +8,7 @@ import click
 import colorama
 import yaml
 
-from rush.utils import run_task, split_lines, strip_spaces, check_shell
+from rush_cli.utils import run_task, split_lines, strip_spaces, check_shell
 
 # Don't strip colors.
 colorama.init(strip=False)
@@ -102,8 +102,16 @@ class PrepTasks:
 class RunTasks(PrepTasks):
     """Class for running the cleaned, flattened & filtered tasks."""
 
-    def __init__(self, *filter_names, is_color=True, print_cmd=True, capture_err=True):
+    def __init__(
+        self,
+        *filter_names,
+        interactive=True,
+        is_color=True,
+        print_cmd=True,
+        capture_err=True,
+    ):
         super().__init__(*filter_names)
+        self.interactive = interactive
         self.is_color = is_color
         self.print_cmd = print_cmd
         self.capture_err = capture_err
@@ -119,7 +127,7 @@ class RunTasks(PrepTasks):
                 task_name = str(click.style(task_name, fg="yellow"))
                 separator = str(click.style(separator, fg="green"))
 
-            #click.echo("")
+            # click.echo("")
             click.echo(task_name)
             click.echo(separator)
 
@@ -137,7 +145,12 @@ class RunTasks(PrepTasks):
                 if self.print_cmd and cmd.startswith("#") is False:
                     self._term_beautify(cmd, is_task_name=False)
                 try:
-                    run_task(self.use_shell, cmd, capture_err=self.capture_err)
+                    run_task(
+                        self.use_shell,
+                        cmd,
+                        interactive=self.interactive,
+                        capture_err=self.capture_err,
+                    )
                 except subprocess.CalledProcessError as e:
                     click.echo(e)
                     sys.exit(1)

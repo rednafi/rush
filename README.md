@@ -1,16 +1,19 @@
 <div align="center">
 
-# Rush
-A Minimalistic Shell-Task Runner
+# Rush 🏃
+**A Minimalistic Shell Task Runner**
+
+![img](./img/rush-example.png)
 </div>
 
-Run all your task automation shell commands from a single `rushfile.yml` file.
+Run all your task automation **shell commands** from a single `rushfile.yml` file.
 
 ## Features
+* Supports basic shell (not bash/zsh/fish syntax) commands for better portability
 * By default, runs commands in interactive mode
-* Option to show or not-show individual commands in a task chunk as they get executed
-* Option to highlight or not-highlight individual task names and task commands
+* Highlights the commands as they get executed
 * Option to catch or ignore command errors
+* Option to show or supress command outputs
 * Command chaining is supported (See the example `rushfile.yml` where `task_2` is chained to `task_1`)
 
 ## Installation
@@ -25,20 +28,23 @@ $ pip install rush-cli
 
     ``` yml
     task_1: |
-        echo "task1 is running"
-        ls
+    echo "task1 is running"
+    ls
 
     task_2: |
+        task_1
         echo "task2 is running"
 
     task_3: |
-        sudo -euo pipefail
         ls -a
         echo "task_3 subtask1 is running"
 
     task_4: |
-        ls | grep cli
+        ls | grep "ce"
         ls > he.txt1
+
+    task_0: |
+        # an empty task
     ```
 
 * See all the available options
@@ -50,10 +56,12 @@ $ pip install rush-cli
     Usage: rush [OPTIONS] [FILTER_NAMES]...
 
     Options:
-    --color / --no-color           Option to color the commands.
-    --print-cmd / --not-print-cmd  Option to print the executing commands.
-    --capture-err / --ignore-err   Option to capture errors
-    -h, --help                     Show this message and exit.
+    --interactive / --not-interactive
+                                    Option to show/hide interactive output.
+    --color / --no-color            Option enable/disable colors.
+    --print-cmd / --not-print-cmd   Option to enable/disable printing commands.
+    --capture-err / --ignore-err    Option to capture/ignore errors.
+    -h, --help                      Show this message and exit.
     ```
 
 * Run all tasks
@@ -65,7 +73,10 @@ $ pip install rush-cli
     ```
     $ rush task_1 task_4
     ```
-
+* Run tasks non interactively (supress the output)
+    ```
+    $ rush --not-interactive
+    ```
 * Run tasks without printing individual commands
     ```
     $ rush task_1 task_2 --not-print-cmd

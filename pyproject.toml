@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "rush"
+name = "rush-cli"
 version = "0.1.0"
 description = "Minimalistic bash task runner"
 authors = ["rednafi <redowan.nafi@gmail.com>"]
@@ -9,12 +9,12 @@ license = "MIT"
 python = "^3.7"
 click = "^7.0"
 colorama = "^0.4.3"
-pyyaml = "^5.1.2"
+pyyaml = "^5.2"
 
 [tool.poetry.dev-dependencies]
 
 [tool.poetry.scripts]
-rush = 'rush.cli:entrypoint'
+rush = 'rush_cli.cli:entrypoint'
 
 [build-system]
 requires = ["poetry>=0.12"]
