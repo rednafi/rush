@@ -19,7 +19,7 @@ Run all your task automation **shell commands** from a single `rushfile.yml` fil
 ## Installation
 
 ```
-$ pip install rush-cli
+$ pip3 install rush-cli
 ```
 
 ## Workflow

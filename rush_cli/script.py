@@ -28,7 +28,12 @@ class PrepTasks:
             return yml_content
 
         except FileNotFoundError:
-            sys.exit("rushfile.yml file not found")
+            sys.exit(click.style("Error: rushfile.yml not found", fg="magenta"))
+
+        except yaml.scanner.ScannerError:
+            sys.exit(
+                click.style("Error: rushfile.yml is not properly formatted", fg="magenta")
+            )
 
     @staticmethod
     def _clean_tasks(yml_content):
@@ -43,7 +48,7 @@ class PrepTasks:
 
             return cleaned_tasks
         except AttributeError:
-            sys.exit("Rushfile is empty.")
+            sys.exit(click.style("Error: Rushfile is empty.", fg="magenta"))
 
     @classmethod
     def _replace_placeholder_tasks(cls, task_chunk: list, cleaned_tasks: dict) -> list:
@@ -78,7 +83,7 @@ class PrepTasks:
                 filtered_tasks = {k: cleaned_tasks[k] for k in filter_names}
                 return filtered_tasks
             except KeyError:
-                sys.exit("Task does not exist.")
+                sys.exit(click.style("Error: Task does not exist.", fg="magenta"))
         else:
             return cleaned_tasks
 
@@ -134,8 +139,8 @@ class RunTasks(PrepTasks):
         else:
             separator = "=>"
             if self.is_color:
-                task_name = str(click.style(task_name, fg="blue"))
-                separator = str(click.style(separator, fg="blue"))
+                task_name = str(click.style(task_name, fg="cyan"))
+                separator = str(click.style(separator, fg="cyan"))
             click.echo(f"{separator} {task_name}")
 
     def run_all_tasks(self):
