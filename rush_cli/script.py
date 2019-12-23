@@ -58,7 +58,7 @@ class PrepTasks:
                 with open("./rushfile.yml") as file:
                     yml_content = yaml.load(file, Loader=yaml.FullLoader)
                     # make sure the task names are strings
-                    yml_content = {str(k):v for k, v in yml_content.items()}
+                    yml_content = {str(k): v for k, v in yml_content.items()}
                 return yml_content
 
             elif rushfile.endswith(".yaml"):
@@ -186,7 +186,7 @@ class RunTasks(PrepTasks):
     def run_all_tasks(self):
         for task_name, task_chunk in self.cleaned_tasks.items():
             if task_name.startswith("//"):
-                task_name = task_name.replace('//', "")
+                task_name = task_name.replace("//", "")
                 click.secho(f"=> Ignoring task {task_name}", fg="blue")
                 click.echo("")
             else:
