@@ -21,18 +21,54 @@ class PrepTasks:
         self.use_shell = check_shell()
         self.filter_names = filter_names
 
-    def _read_yml(self):
-        try:
-            with open("./rushfile.yml") as file:
-                yml_content = yaml.load(file, Loader=yaml.FullLoader)
-            return yml_content
+    def _check_rushfiles(self):
+        """Check if there are multiple rushfiles in the same directory."""
 
-        except FileNotFoundError:
-            sys.exit(click.style("Error: rushfile.yml not found", fg="magenta"))
+        rushfiles = []
+        for file in os.listdir("./"):
+            if file.startswith("rushfile") and (
+                file.endswith(".yml") or file.endswith(".yaml")
+            ):
+                rushfiles.append(file)
+        return rushfiles
+
+    def _read_yml(self):
+        rushfiles = self._check_rushfiles()
+
+        if len(rushfiles) < 1:
+            sys.exit(
+                click.style(
+                    "Error: Rushfile [rushfile.yml/rushfile.yaml] not found.",
+                    fg="magenta",
+                )
+            )
+        elif len(rushfiles) > 1:
+            sys.exit(
+                click.style(
+                    "Error: Multiple rushfiles [rushfile.yml/rushfile.yaml]"
+                    " in the same directory.",
+                    fg="magenta",
+                )
+            )
+
+        try:
+            rushfile = rushfiles[0]
+
+            if rushfile.endswith(".yml"):
+                with open("./rushfile.yml") as file:
+                    yml_content = yaml.load(file, Loader=yaml.FullLoader)
+                return yml_content
+
+            elif rushfile.endswith(".yaml"):
+                with open("./rushfile.yaml") as file:
+                    yml_content = yaml.load(file, Loader=yaml.FullLoader)
+                return yml_content
 
         except yaml.scanner.ScannerError:
             sys.exit(
-                click.style("Error: rushfile.yml is not properly formatted", fg="magenta")
+                click.style(
+                    "Error: rushfile.yml is not properly formatted", fg="magenta"
+                )
             )
 
     @staticmethod
@@ -49,6 +85,7 @@ class PrepTasks:
             return cleaned_tasks
         except AttributeError:
             sys.exit(click.style("Error: Rushfile is empty.", fg="magenta"))
+            # raise AttributeError
 
     @classmethod
     def _replace_placeholder_tasks(cls, task_chunk: list, cleaned_tasks: dict) -> list:

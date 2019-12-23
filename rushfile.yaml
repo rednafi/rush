@@ -15,4 +15,4 @@ task_4: |
     ls > he.txt1
 
 task_0: |
-    # an empty task 
+    # an empty task
