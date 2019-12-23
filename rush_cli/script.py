@@ -64,7 +64,7 @@ class PrepTasks:
                     yml_content = yaml.load(file, Loader=yaml.FullLoader)
                 return yml_content
 
-        except yaml.scanner.ScannerError:
+        except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             sys.exit(
                 click.style(
                     "Error: rushfile.yml is not properly formatted", fg="magenta"
