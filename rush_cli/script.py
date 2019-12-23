@@ -57,11 +57,15 @@ class PrepTasks:
             if rushfile.endswith(".yml"):
                 with open("./rushfile.yml") as file:
                     yml_content = yaml.load(file, Loader=yaml.FullLoader)
+                    # make sure the task names are strings
+                    yml_content = {str(k):v for k, v in yml_content.items()}
                 return yml_content
 
             elif rushfile.endswith(".yaml"):
                 with open("./rushfile.yaml") as file:
                     yml_content = yaml.load(file, Loader=yaml.FullLoader)
+                    # make sure the task names are strings
+                    yml_content = {str(k): v for k, v in yml_content.items()}
                 return yml_content
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
@@ -181,17 +185,21 @@ class RunTasks(PrepTasks):
 
     def run_all_tasks(self):
         for task_name, task_chunk in self.cleaned_tasks.items():
-            self._term_beautify(task_name)
-            for cmd in task_chunk:
-                if self.print_cmd and cmd.startswith("#") is False:
-                    self._term_beautify(cmd, is_task_name=False)
-                try:
-                    run_task(
-                        self.use_shell,
-                        cmd,
-                        interactive=self.interactive,
-                        capture_err=self.capture_err,
-                    )
-                except subprocess.CalledProcessError as e:
-                    click.echo(e)
-                    sys.exit(1)
+            if task_name.startswith("//"):
+                click.secho(f"=> Ignoring task {task_name}", fg="blue")
+                click.echo("")
+            else:
+                self._term_beautify(task_name)
+                for cmd in task_chunk:
+                    if self.print_cmd and cmd.startswith("#") is False:
+                        self._term_beautify(cmd, is_task_name=False)
+                    try:
+                        run_task(
+                            self.use_shell,
+                            cmd,
+                            interactive=self.interactive,
+                            capture_err=self.capture_err,
+                        )
+                    except subprocess.CalledProcessError as e:
+                        click.echo(e)
+                        sys.exit(1)

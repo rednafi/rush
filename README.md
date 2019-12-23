@@ -8,10 +8,10 @@
 
 Run all your task automation **shell commands** from a single `rushfile.yml` file.
 
-# What's New
+## What's New
 * Support for both `.yml` and `.yaml`
 * Showing less ugly error message
-* Catching if there are multiple rushfiles in the same directory (e.g. : rushfile.yml & rushfile.yaml)
+* Catching if there are multiple rushfiles in the same directory (e.g. : `rushfile.yml` & `rushfile.yaml`)
 * Catching formatting errors in the `rushfile.yml / rushfile.yaml`
 
 ## Features

@@ -1,4 +1,4 @@
-task_1: |
+1: |
     echo "task1 is running"
     ls
 
@@ -10,7 +10,7 @@ task_3: |
     ls -a
     echo "task_3 subtask1 is running"
 
-task_4: |
+//task_4: |
     ls | grep "ce"
     ls > he.txt1
 
