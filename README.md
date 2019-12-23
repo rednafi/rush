@@ -4,9 +4,10 @@
 **A Minimalistic Shell Task Runner**
 
 ![img](./img/rush-example.png)
+
+**Run all your task automation **shell commands** from a single `rushfile.yml` file.**
 </div>
 
-Run all your task automation **shell commands** from a single `rushfile.yml` file.
 
 ## What's New
 * You can you ignore task execution by adding `//` before taskname in the `rushfile.yml`
