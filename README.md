@@ -9,10 +9,9 @@
 Run all your task automation **shell commands** from a single `rushfile.yml` file.
 
 ## What's New
-* Support for both `.yml` and `.yaml`
-* Showing less ugly error message
-* Catching if there are multiple rushfiles in the same directory (e.g. : `rushfile.yml` & `rushfile.yaml`)
-* Catching formatting errors in the `rushfile.yml / rushfile.yaml`
+* You can you ignore task execution by adding `//` before taskname in the `rushfile.yml`
+* Support for both `.yml` and `.yaml` types of `rushfile`.
+
 
 ## Features
 * Supports basic shell (not bash/zsh/fish syntax) commands for better portability
@@ -45,12 +44,14 @@ $ pip3 install rush-cli
         ls -a
         echo "task_3 subtask1 is running"
 
-    task_4: |
+    # Ignoring a task
+    //task_4: |
         ls | grep "ce"
         ls > he.txt1
 
     task_0: |
         # an empty task
+
     ```
 
 * See all the available options
