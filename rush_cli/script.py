@@ -30,10 +30,6 @@ class PrepTasks:
                 file.endswith(".yml") or file.endswith(".yaml")
             ):
                 rushfiles.append(file)
-        return rushfiles
-
-    def _read_yml(self):
-        rushfiles = self._check_rushfiles()
 
         if len(rushfiles) < 1:
             sys.exit(
@@ -50,10 +46,14 @@ class PrepTasks:
                     fg="magenta",
                 )
             )
-
-        try:
+        else:
             rushfile = rushfiles[0]
+        return rushfile
 
+    def _read_yml(self):
+
+        rushfile = self._check_rushfiles()
+        try:
             if rushfile.endswith(".yml"):
                 with open("./rushfile.yml") as file:
                     yml_content = yaml.load(file, Loader=yaml.FullLoader)
@@ -85,7 +85,6 @@ class PrepTasks:
             return cleaned_tasks
         except AttributeError:
             sys.exit(click.style("Error: Rushfile is empty.", fg="magenta"))
-            # raise AttributeError
 
     @classmethod
     def _replace_placeholder_tasks(cls, task_chunk: list, cleaned_tasks: dict) -> list:
