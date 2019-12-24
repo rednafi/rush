@@ -1,6 +1,0 @@
-
-install:
-    echo "hello"
-
-install/full:
-    echo "stan"
