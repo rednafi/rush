@@ -27,23 +27,56 @@ def check_shell():
         sys.exit()
 
 
+def beautify_task_name(task_name, is_color=True):
+    task_name = f"{task_name}:"
+    underline_len = len(task_name) + 3
+    underline = "=" * underline_len
+
+    if is_color:
+        task_name = str(click.style(task_name, fg="yellow"))
+        underline = str(click.style(underline, fg="green"))
+
+    click.echo(task_name)
+    click.echo(underline)
+
+
+def beautify_skiptask_name(task_name, is_color=True):
+    task_name = f"=> Ignoring task {task_name}"
+    if is_color:
+        task_name = click.style(task_name, fg="blue")
+    click.echo(task_name)
+
+
+def beautify_cmd(cmd, is_color=True):
+    separator = "=>"
+    if is_color:
+        cmd = str(click.style(cmd, fg="cyan"))
+        separator = str(click.style(separator, fg="cyan"))
+    click.echo(f"{separator} {cmd}")
+
+
+def beautify_cmd_output(output):
+    output = strip_spaces(output)
+    output = split_lines(output)
+    output = [" " * 3 + x for x in output]
+    output = "\n".join(output)
+    click.echo(output)
+
 
 def run_task(use_shell, command, interactive=True, capture_err=True):
-    std_out = sys.stdout if interactive else subprocess.PIPE
-    std_in = sys.stdin if interactive else subprocess.PIPE
-
+    # std_out = sys.stdout if interactive else subprocess.PIPE
+    # std_in = sys.stdin if interactive else subprocess.PIPE
+    capture_out = True if interactive else False
     res = subprocess.run(
         [use_shell, "-c", command],
-        stdout=std_out,
-        stdin=std_in,
-        stderr=std_out,
+        # stdout=std_out,
+        # stdin=std_in,
+        # stderr=std_out,
         universal_newlines=True,
-        check=capture_err
+        check=capture_err,
+        capture_output=capture_out,
     )
-    click.echo("")
-
-    # click.echo(res.stdout)
-    # click.echo(res.stderr)
-
-
-# print(run_task(check_shell(), "ls | grep cli"))
+    std_out = beautify_cmd_output(res.stdout)
+    std_err = beautify_cmd_output(res.stderr)
+    click.echo(std_out)
+    click.echo(std_err)
