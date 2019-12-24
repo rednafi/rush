@@ -8,7 +8,16 @@ import click
 import colorama
 import yaml
 
-from rush_cli.utils import run_task, split_lines, strip_spaces, check_shell
+from rush_cli.utils import (
+    run_task,
+    split_lines,
+    strip_spaces,
+    check_shell,
+    beautify_task_name,
+    beautify_cmd_output,
+    beautify_cmd,
+)
+
 
 # Don't strip colors.
 colorama.init(strip=False)
@@ -162,38 +171,16 @@ class RunTasks(PrepTasks):
         self.capture_err = capture_err
         self.cleaned_tasks = self.get_tasks()
 
-    def _term_beautify(self, task_name, is_task_name=True):
-        if is_task_name:
-            task_name = f"{task_name}:"
-            separator_len = len(task_name) + 3
-            separator = "=" * separator_len
-
-            if self.is_color:
-                task_name = str(click.style(task_name, fg="yellow"))
-                separator = str(click.style(separator, fg="green"))
-
-            # click.echo("")
-            click.echo(task_name)
-            click.echo(separator)
-
-        else:
-            separator = "=>"
-            if self.is_color:
-                task_name = str(click.style(task_name, fg="cyan"))
-                separator = str(click.style(separator, fg="cyan"))
-            click.echo(f"{separator} {task_name}")
-
     def run_all_tasks(self):
         for task_name, task_chunk in self.cleaned_tasks.items():
             if task_name.startswith("//"):
                 task_name = task_name.replace("//", "")
                 click.secho(f"=> Ignoring task {task_name}", fg="blue")
-                click.echo("")
             else:
-                self._term_beautify(task_name)
+                beautify_task_name(task_name, is_color=self.is_color)
                 for cmd in task_chunk:
                     if self.print_cmd and cmd.startswith("#") is False:
-                        self._term_beautify(cmd, is_task_name=False)
+                        beautify_cmd(cmd)
                     try:
                         run_task(
                             self.use_shell,
