@@ -55,28 +55,17 @@ def beautify_cmd(cmd, is_color=True):
     click.echo(f"{separator} {cmd}")
 
 
-def beautify_cmd_output(output):
-    output = strip_spaces(output)
-    output = split_lines(output)
-    output = [" " * 3 + x for x in output]
-    output = "\n".join(output)
-    click.echo(output)
-
-
 def run_task(use_shell, command, interactive=True, capture_err=True):
-    # std_out = sys.stdout if interactive else subprocess.PIPE
-    # std_in = sys.stdin if interactive else subprocess.PIPE
-    capture_out = True if interactive else False
+    std_out = sys.stdout if interactive else subprocess.PIPE
+    std_in = sys.stdin if interactive else subprocess.PIPE
+
     res = subprocess.run(
         [use_shell, "-c", command],
-        # stdout=std_out,
-        # stdin=std_in,
-        # stderr=std_out,
+        stdout=std_out,
+        stdin=std_in,
+        stderr=std_out,
         universal_newlines=True,
         check=capture_err,
-        capture_output=capture_out,
+        capture_output=False,
     )
-    std_out = beautify_cmd_output(res.stdout)
-    std_err = beautify_cmd_output(res.stderr)
-    click.echo(std_out)
-    click.echo(std_err)
+    click.echo("")

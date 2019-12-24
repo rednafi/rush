@@ -15,7 +15,6 @@ from rush_cli.utils import (
     check_shell,
     beautify_task_name,
     beautify_skiptask_name,
-    beautify_cmd_output,
     beautify_cmd,
 )
 
@@ -191,5 +190,5 @@ class RunTasks(PrepTasks):
                             capture_err=self.capture_err,
                         )
                     except subprocess.CalledProcessError as e:
-                        beautify_cmd_output(str(e.__str__()))
+                        click.echo(e)
                         sys.exit(1)
