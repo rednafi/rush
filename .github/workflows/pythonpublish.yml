@@ -9,17 +9,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-python@v1
+    - uses: dschep/install-poetry-action@v1.2
+    - run: poetry run my_script.py
+    
     - uses: actions/checkout@v1
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
         python-version: '3.x'
-
-    - name: Install poetry
-      uses: actions/checkout@master
-      uses: actions/setup-python@v1
-      uses: dschep/install-poetry-action@v1.2
-      run: poetry run my_script.py
 
     - name: Install dependencies
       run: |
