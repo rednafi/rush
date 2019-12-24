@@ -38,6 +38,7 @@ def run_task(use_shell, command, interactive=True, capture_err=True):
         stdin=std_in,
         stderr=std_out,
         universal_newlines=True,
+        check=capture_err
     )
     click.echo("")
 
