@@ -103,4 +103,4 @@ $ pip3 install rush-cli
 
 ## Quirks
 
-* Rush runs all the commands using `/bin/sh` (not bash or anything else). So shell specific scripts might throw error.
+* Rush runs all the commands using `/bin/sh` (not bash or anything else). So shell specific syntax might throw error. In these cases I encourage you to create dedicated shell scripts with proper shebangs and add those as tasks in the rushfile.
