@@ -14,6 +14,7 @@ from rush_cli.utils import (
     strip_spaces,
     check_shell,
     beautify_task_name,
+    beautify_skiptask_name,
     beautify_cmd_output,
     beautify_cmd,
 )
@@ -175,7 +176,8 @@ class RunTasks(PrepTasks):
         for task_name, task_chunk in self.cleaned_tasks.items():
             if task_name.startswith("//"):
                 task_name = task_name.replace("//", "")
-                click.secho(f"=> Ignoring task {task_name}", fg="blue")
+                beautify_skiptask_name(task_name, is_color=self.is_color)
+
             else:
                 beautify_task_name(task_name, is_color=self.is_color)
                 for cmd in task_chunk:
@@ -189,5 +191,5 @@ class RunTasks(PrepTasks):
                             capture_err=self.capture_err,
                         )
                     except subprocess.CalledProcessError as e:
-                        click.echo(e)
+                        beautify_cmd_output(str(e.__str__()))
                         sys.exit(1)

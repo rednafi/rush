@@ -40,6 +40,13 @@ def beautify_task_name(task_name, is_color=True):
     click.echo(underline)
 
 
+def beautify_skiptask_name(task_name, is_color=True):
+    task_name = f"=> Ignoring task {task_name}"
+    if is_color:
+        task_name = click.style(task_name, fg="blue")
+    click.echo(task_name)
+
+
 def beautify_cmd(cmd, is_color=True):
     separator = "=>"
     if is_color:
@@ -53,7 +60,7 @@ def beautify_cmd_output(output):
     output = split_lines(output)
     output = [" " * 3 + x for x in output]
     output = "\n".join(output)
-    return output
+    click.echo(output)
 
 
 def run_task(use_shell, command, interactive=True, capture_err=True):
@@ -69,14 +76,7 @@ def run_task(use_shell, command, interactive=True, capture_err=True):
         check=capture_err,
         capture_output=capture_out,
     )
-    l = res.stdout
-    l = beautify_cmd_output(l)
-
-    click.echo(l)
-    click.echo(beautify_cmd_output(res.stderr))
-    return l
-
-
-# l = run_task(check_shell(), "ls | grep cli")
-# m = split_lines(strip_spaces(l))
-# #print(m)
+    std_out = beautify_cmd_output(res.stdout)
+    std_err = beautify_cmd_output(res.stderr)
+    click.echo(std_out)
+    click.echo(std_err)
