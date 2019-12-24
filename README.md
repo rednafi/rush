@@ -10,8 +10,9 @@
 
 
 ## What's New
+* Supports both a 4-space and 2-space indents in the `.yml` file
 * You can you ignore task execution by adding `//` before taskname in the `rushfile.yml`
-* Support for both `.yml` and `.yaml` types of `rushfile`.
+* Support for both `.yml` and `.yaml` types of `rushfile`
 
 
 ## Features
@@ -34,8 +35,8 @@ $ pip3 install rush-cli
 
     ``` yml
     task_1: |
-    echo "task1 is running"
-    ls
+        echo "task1 is running"
+        ls
 
     task_2: |
         task_1
