@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rush-cli"
-version = "0.2.2"
+version = "0.2.3"
 description = "Minimalistic bash task runner"
 authors = ["rednafi <redowan.nafi@gmail.com>"]
 license = "MIT"
@@ -10,6 +10,8 @@ python = "^3.7"
 click = "^7.0"
 colorama = "^0.4.3"
 pyyaml = "^5.2"
+pretty_errors = "^1.1.11"
+
 
 [tool.poetry.dev-dependencies]
 
