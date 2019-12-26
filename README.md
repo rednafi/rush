@@ -1,22 +1,21 @@
 <div align="center">
 
 # Rush 🏃
-**A Minimalistic Shell Task Runner**
+**A Minimalistic Bash Task Runner**
 
 ![img](./img/rush-example.png)
 
-**Run all your task automation **shell commands** from a single `rushfile.yml` file.**
+**Run all your task automation **Bash commands** from a single `rushfile.yml` file.**
 </div>
 
 
 ## What's New
 * Supports both a 4-space and 2-space indents in the `.yml` file
 * You can you ignore task execution by adding `//` before taskname in the `rushfile.yml`
-* Support for both `.yml` and `.yaml` types of `rushfile`
 
 
 ## Features
-* Supports basic shell (not bash/zsh/fish syntax) commands for better portability
+* Supports all bash commands
 * By default, runs commands in interactive mode
 * Highlights the commands as they get executed
 * Option to catch or ignore command errors
@@ -104,4 +103,4 @@ $ pip3 install rush-cli
 
 ## Quirks
 
-* Rush runs all the commands using `/bin/sh` (not bash or anything else). So shell specific syntax with other shebangs might throw error. In these cases I encourage you to create dedicated shell scripts with proper shebang (`/bin/sh`) and add those as tasks in the rushfile.
+* Rush runs all the commands using `/usr/bin/bash`. So shell specific syntax with other shebangs might throw error. In these cases, I encourage you to create dedicated shell scripts with proper shebang (`#!/usr/bin/env bash`) and add those as tasks in the rushfile.

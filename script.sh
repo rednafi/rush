@@ -1,4 +1,8 @@
-#!/usr/bin/bash
-set -euo pipefail
-a=$1
-ech "$1+3"
+#!/usr/bin/env bash
+
+echo " ______          _"
+echo " | ___ \        | |"
+echo " | |_/ /   _ ___| |__"
+echo " |    / | | / __| '_ \ "
+echo " | |\ \ |_| \__ \ | | |"
+echo " \_| \_\__,_|___/_| |_|"

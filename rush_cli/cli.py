@@ -1,6 +1,7 @@
 import click
 import colorama
-from rush_cli.script import RunTasks
+
+from rush_cli.run_tasks import RunTasks
 
 # Don't strip colors.
 colorama.init(strip=False)

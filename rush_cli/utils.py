@@ -1,5 +1,7 @@
+import os
 import subprocess
 import sys
+
 import click
 
 
@@ -11,20 +13,34 @@ def split_lines(st):
     return st.split("\n")
 
 
-def check_shell():
+def find_shell_path(shell_name):
+    """Finds out system's bash interpreter path"""
+
+    if not os.name == "nt":
+        cmd = ["which", "-a", shell_name]
+    else:
+        cmd = ["where", shell_name]
+
     try:
-        sub = subprocess.check_output(["which", "-a", "sh"], universal_newlines=True)
-        output = sub.split("\n")
-        if "/bin/sh" in output:
-            return "/bin/sh"
-        if "/usr/bin/bash" in output:
-            return "/usr/bin/sh"
+        c = subprocess.run(
+            cmd, universal_newlines=True, check=True, capture_output=True
+        )
+        output = c.stdout.split("\n")
+        output = [_ for _ in output if _]
+
+        _shell_paths = [f"/bin/{shell_name}", f"/usr/bin/{shell_name}"]
+
+        for path in output:
+            if path == _shell_paths[0]:
+                return path
+            elif path == _shell_paths[1]:
+                return path
 
     except subprocess.CalledProcessError:
         click.echo(
-            click.style("No shell found. You need a shell to use Rush.", fg="red")
+            click.style("Error: Bash not found. Install Bash to use Rush.", fg="red")
         )
-        sys.exit()
+        sys.exit(1)
 
 
 def beautify_task_name(task_name, is_color=True):
