@@ -38,21 +38,22 @@ $ pip3 install rush-cli
         ls
 
     task_2: |
+        # Task chaining [task_1 is a dependency of task_2]
         task_1
         echo "task2 is running"
 
     task_3: |
-        ls -a
-        echo "task_3 subtask1 is running"
+        l -a
+        echo "task_3 is running"
 
-    # Ignoring a task
     //task_4: |
+        # Ignoring a task [task_4 will be ignored while execution]
         ls | grep "ce"
         ls > he.txt1
 
-    task_0: |
-        # an empty task
-
+    task_5: |
+        # Running a bash script from rush
+        ./script.sh
     ```
 
 * See all the available options
