@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+    tags:
+      - v*
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
