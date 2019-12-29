@@ -8,6 +8,17 @@ version = "7.0"
 
 [[package]]
 category = "main"
+description = "Colorization of help messages in Click"
+name = "click-help-colors"
+optional = false
+python-versions = "*"
+version = "0.6"
+
+[package.dependencies]
+click = ">=7.0"
+
+[[package]]
+category = "main"
 description = "Cross-platform colored terminal text."
 name = "colorama"
 optional = false
@@ -34,13 +45,17 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "5.2"
 
 [metadata]
-content-hash = "882979f547b2dde1043081fb5a00b576f61daceee24f77ef33ee7cc7df8c6840"
+content-hash = "c472b049de5c373cf75e483c66c494ae95d7830ab2e4619158747faf06d162d5"
 python-versions = "^3.7"
 
 [metadata.files]
 click = [
     {file = "Click-7.0-py2.py3-none-any.whl", hash = "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13"},
     {file = "Click-7.0.tar.gz", hash = "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"},
+]
+click-help-colors = [
+    {file = "click-help-colors-0.6.tar.gz", hash = "sha256:258d5f4d79e54af8d017c07313456db22e636c964dd0808a2fb0aefc654ee30c"},
+    {file = "click_help_colors-0.6-py3-none-any.whl", hash = "sha256:979b3837da6c6cfccd59f4f20e28ff06c6fc4c240c7d2660b3a2c2b337ae5dcb"},
 ]
 colorama = [
     {file = "colorama-0.4.3-py2.py3-none-any.whl", hash = "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff"},

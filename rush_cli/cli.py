@@ -2,12 +2,20 @@ import click
 import colorama
 
 from rush_cli.run_tasks import RunTasks
+from click_help_colors import HelpColorsCommand
 
 # Don't strip colors.
 colorama.init(strip=False)
 
 
-@click.command(context_settings=dict(help_option_names=["-h", "--help"]))
+@click.command(
+    context_settings=dict(
+        help_option_names=["-h", "--help"], token_normalize_func=lambda x: x.lower()
+    ),
+    cls=HelpColorsCommand,
+    help_headers_color="yellow",
+    help_options_color="green",
+)
 @click.option(
     "--interactive/--not-interactive",
     default=True,
@@ -26,6 +34,8 @@ colorama.init(strip=False)
 )
 @click.argument("filter_names", required=False, nargs=-1)
 def entrypoint(*, filter_names, interactive, print_cmd, capture_err, view_tasks):
+    """A Minimalistic Bash Task Runner"""
+
     run_tasks_obj = RunTasks(
         *filter_names,
         interactive=interactive,

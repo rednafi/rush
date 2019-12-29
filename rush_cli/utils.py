@@ -12,8 +12,9 @@ def strip_spaces(st):
 def split_lines(st):
     return st.split("\n")
 
+
 def remove_comments(task_chunk: list) -> list:
-    task_chunk = [task for task in task_chunk if not task.startswith("#")]
+    task_chunk = [task for task in task_chunk if not task.startswith("#") ]
     return task_chunk
 
 
