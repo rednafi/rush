@@ -1,9 +1,11 @@
 import os
 import sys
-
+import subprocess
 import click
 import pretty_errors
 import yaml
+from pprint import pprint
+from collections import OrderedDict
 
 from rush_cli.utils import find_shell_path
 
@@ -69,10 +71,13 @@ class ReadTasks:
                 )
             )
 
+
 class ViewTasks(ReadTasks):
     def __init__(self):
         super().__init__()
-        self.yml_content = self.read_yml()
+        self.rushfile = self._check_rushfiles()
 
     def view_tasks(self):
-        print(self.yml_content)
+        subprocess.run(
+            ["pygmentize", "-f", "256", "-O", "style=monokai", self.rushfile]
+        )

@@ -4,9 +4,6 @@ import yaml
 from pprint import pprint
 from rush_cli.prep_tasks import PrepTasks
 
-obj = PrepTasks()
-cleaned_tasks = obj.get_prepared_tasks()
+from pygments.styles import get_all_styles
 
-
-
-pprint(cleaned_tasks)
+print(list(get_all_styles()))
