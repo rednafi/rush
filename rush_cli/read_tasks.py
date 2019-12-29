@@ -68,5 +68,3 @@ class ReadTasks:
                     "Error: rushfile.yml is not properly formatted", fg="magenta"
                 )
             )
-
-

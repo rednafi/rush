@@ -17,30 +17,31 @@ colorama.init(strip=False)
     help_options_color="green",
 )
 @click.option(
-    "--interactive/--not-interactive",
+    "--hide-outputs",
+    is_flag=True,
     default=True,
     help="Option to show/hide interactive output.",
 )
 @click.option(
-    "--print-cmd/--not-print-cmd",
+    "--hide-commands",
+    is_flag=True,
     default=True,
     help="Option to enable/disable printing commands.",
 )
 @click.option(
-    "--capture-err/--ignore-err", default=True, help="Option to capture/ignore errors."
-)
-@click.option(
-    "--view-tasks/--not-view-tasks", default=False, help="Option to view tasks."
+    "--ignore-errors",
+    is_flag=True,
+    default=True,
+    help="Option to capture/ignore errors.",
 )
 @click.argument("filter_names", required=False, nargs=-1)
-def entrypoint(*, filter_names, interactive, print_cmd, capture_err, view_tasks):
+def entrypoint(*, filter_names, hide_outputs, hide_commands, ignore_errors):
     """A Minimalistic Bash Task Runner"""
 
     run_tasks_obj = RunTasks(
         *filter_names,
-        interactive=interactive,
-        print_cmd=print_cmd,
-        capture_err=capture_err,
-        view_tasks=view_tasks
+        show_outputs=hide_outputs,
+        show_commands=hide_commands,
+        catch_errors=ignore_errors,
     )
     run_tasks_obj.run_all_tasks()

@@ -14,7 +14,7 @@ def split_lines(st):
 
 
 def remove_comments(task_chunk: list) -> list:
-    task_chunk = [task for task in task_chunk if not task.startswith("#") ]
+    task_chunk = [task for task in task_chunk if not task.startswith("#")]
     return task_chunk
 
 
@@ -74,7 +74,7 @@ def beautify_cmd(cmd):
         click.echo(f"{separator} {cmd}")
 
 
-def run_task(use_shell, command, interactive=True, capture_err=True):
+def run_task(use_shell, command, interactive=True, catch_error=True):
     std_out = sys.stdout if interactive else subprocess.PIPE
     std_in = sys.stdin if interactive else subprocess.PIPE
 
@@ -84,7 +84,7 @@ def run_task(use_shell, command, interactive=True, capture_err=True):
         stdin=std_in,
         stderr=std_out,
         universal_newlines=True,
-        check=capture_err,
+        check=catch_error,
         capture_output=False,
     )
     click.echo("")
