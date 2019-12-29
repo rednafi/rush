@@ -16,7 +16,12 @@ class RunTasks(PrepTasks):
     """Class for running the cleaned, flattened & filtered tasks."""
 
     def __init__(
-        self, *filter_names, show_outputs=True, show_commands=True, catch_errors=True, view_tasks=False
+        self,
+        *filter_names,
+        show_outputs=True,
+        show_commands=True,
+        catch_errors=True,
+        view_tasks=False
     ):
         super().__init__(*filter_names)
         self.show_outputs = show_outputs
@@ -33,7 +38,7 @@ class RunTasks(PrepTasks):
 
             else:
                 if self.view_tasks:
-                    click.echo('')
+                    click.echo("")
                     beautify_task_name(task_name)
                 else:
                     beautify_task_name(task_name)

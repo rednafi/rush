@@ -43,7 +43,9 @@ def find_shell_path(shell_name):
 
     except subprocess.CalledProcessError:
         click.echo(
-            click.style("Error: Bash not found. Install Bash to use Rush.", fg="magenta")
+            click.style(
+                "Error: Bash not found. Install Bash to use Rush.", fg="magenta"
+            )
         )
         sys.exit(1)
 
@@ -65,6 +67,7 @@ def beautify_skiptask_name(task_name):
     task_name = click.style(task_name, fg="blue")
     click.echo(task_name)
     click.echo("")
+
 
 def beautify_cmd(cmd):
     if not cmd.startswith("#"):
