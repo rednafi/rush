@@ -29,70 +29,74 @@ $ pip3 install rush-cli
 
 ## Workflow
 
-* Here is an example `rushfile.yml`. It needs to reside in the root directory:
+### Rushfile
+Here is an example `rushfile.yml`. It needs to reside in the root directory:
 
-    ``` yml
-    task_1: |
-        echo "task1 is running"
-        ls
+``` yml
+task_1: |
+    echo "task1 is running"
+    ls
 
-    task_2: |
-        # Task chaining [task_1 is a dependency of task_2]
-        task_1
-        echo "task2 is running"
+task_2: |
+    # Task chaining [task_1 is a dependency of task_2]
+    task_1
+    echo "task2 is running"
 
-    task_3: |
-        l -a
-        echo "task_3 is running"
+task_3: |
+    l -a
+    echo "task_3 is running"
 
-    //task_4: |
-        # Ignoring a task [task_4 will be ignored while execution]
-        ls | grep "ce"
-        ls > he.txt1
+//task_4: |
+    # Ignoring a task [task_4 will be ignored while execution]
+    ls | grep "ce"
+    ls > he.txt1
 
-    task_5: |
-        # Running a bash script from rush
-        ./script.sh
+task_5: |
+    # Running a bash script from rush
+    ./script.sh
 
-    ```
+```
 
-* See all the available options
-    ```
-    $ rush --help
-    ```
-    This should show:
+### Available Options
+To see all the available options, run:
+```
+$ rush --help
+```
+This should show:
 
-    ![img](./img/rush-help.png)
+![img](./img/rush-help.png)
 
-* Run all tasks
+### Running Tasks
+
+* **Run all the tasks:**
     ```
     $ rush
     ```
 
-* Run specific tasks
+* **Run specific tasks:**
     ```
     $ rush task_1 task_4
     ```
-* Run tasks non interactively (supress the outputs)
+* **Run tasks non interactively:** (supress the outputs)
     ```
     $ rush --hide-outputs
     ```
-* Run tasks without printing individual commands
+* **Run tasks without printing individual commands:**
     ```
     $ rush task_1 task_2 --hide-commands
     ```
 
-* Run tasks ignoring errors
+* **Run tasks ignoring errors:**
     ```
     $ rush --ignore-errors
     ```
 
-* View tasks without running
+* **View tasks without running**
     ```
     $ rush --view-tasks
     ```
 
-* View individual tasks without running
+* **View individual tasks without running:**
     ```
     $rush task_2 --view-tasks
     ```

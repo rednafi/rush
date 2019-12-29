@@ -3,7 +3,6 @@ import colorama
 from click_help_colors import HelpColorsCommand
 
 from rush_cli.run_tasks import RunTasks
-from rush_cli.utils import check_version
 
 # Don't strip colors.
 colorama.init(strip=False)
