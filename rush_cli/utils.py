@@ -43,7 +43,7 @@ def find_shell_path(shell_name):
 
     except subprocess.CalledProcessError:
         click.echo(
-            click.style("Error: Bash not found. Install Bash to use Rush.", fg="red")
+            click.style("Error: Bash not found. Install Bash to use Rush.", fg="magenta")
         )
         sys.exit(1)
 
