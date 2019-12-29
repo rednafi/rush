@@ -64,6 +64,7 @@ def beautify_skiptask_name(task_name):
     task_name = f"=> Ignoring task {task_name}"
     task_name = click.style(task_name, fg="blue")
     click.echo(task_name)
+    click.echo("")
 
 
 def beautify_cmd(cmd):

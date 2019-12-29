@@ -68,3 +68,11 @@ class ReadTasks:
                     "Error: rushfile.yml is not properly formatted", fg="magenta"
                 )
             )
+
+class ViewTasks(ReadTasks):
+    def __init__(self):
+        super().__init__()
+        self.yml_content = self.read_yml()
+
+    def view_tasks(self):
+        print(self.yml_content)
