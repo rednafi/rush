@@ -37,19 +37,19 @@ class RunTasks(PrepTasks):
                     beautify_task_name(task_name)
                 else:
                     beautify_task_name(task_name)
-                    
+
                 for cmd in task_chunk:
                     if self.show_commands:
                         beautify_cmd(cmd)
 
-                        if not self.view_tasks:
-                            try:
-                                run_task(
-                                    self.use_shell,
-                                    cmd,
-                                    interactive=self.show_outputs,
-                                    catch_error=self.catch_errors,
-                                )
-                            except subprocess.CalledProcessError as e:
-                                click.echo(e)
-                                sys.exit(1)
+                    if not self.view_tasks:
+                        try:
+                            run_task(
+                                self.use_shell,
+                                cmd,
+                                interactive=self.show_outputs,
+                                catch_error=self.catch_errors,
+                            )
+                        except subprocess.CalledProcessError as e:
+                            click.echo(e)
+                            sys.exit(1)

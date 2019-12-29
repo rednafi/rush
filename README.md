@@ -9,8 +9,6 @@
 </div>
 
 
-## What's New
-* Supports both a 4-space and 2-space indents in the `.yml` file
 * You can you ignore task execution by adding `//` before taskname in the `rushfile.yml`
 
 
@@ -21,6 +19,7 @@
 * Option to catch or ignore command errors
 * Option to show or supress command outputs
 * Command chaining is supported (See the example `rushfile.yml` where `task_2` is chained to `task_1`)
+* Individual tasks can be ignored
 
 ## Installation
 
@@ -54,6 +53,7 @@ $ pip3 install rush-cli
     task_5: |
         # Running a bash script from rush
         ./script.sh
+
     ```
 
 * See all the available options
@@ -61,17 +61,8 @@ $ pip3 install rush-cli
     $ rush --help
     ```
     This should show:
-    ```
-    Usage: rush [OPTIONS] [FILTER_NAMES]...
 
-    Options:
-    --interactive / --not-interactive
-                                    Option to show/hide interactive output.
-    --color / --no-color            Option enable/disable colors.
-    --print-cmd / --not-print-cmd   Option to enable/disable printing commands.
-    --capture-err / --ignore-err    Option to capture/ignore errors.
-    -h, --help                      Show this message and exit.
-    ```
+    ![img](./img/rush-help.png)
 
 * Run all tasks
     ```
@@ -82,25 +73,29 @@ $ pip3 install rush-cli
     ```
     $ rush task_1 task_4
     ```
-* Run tasks non interactively (supress the output)
+* Run tasks non interactively (supress the outputs)
     ```
-    $ rush --not-interactive
+    $ rush --hide-outputs
     ```
 * Run tasks without printing individual commands
     ```
-    $ rush task_1 task_2 --not-print-cmd
+    $ rush task_1 task_2 --hide-commands
     ```
 
 * Run tasks ignoring errors
     ```
-    $ rush --ignore-err
+    $ rush --ignore-errors
     ```
 
-* Remove color
+* View tasks without running
     ```
-    $ rush --no-color
+    $ rush --view-tasks
     ```
 
+* View individual tasks without running
+    ```
+    $rush task_2 --view-tasks
+    ```
 
 ## Quirks
 
