@@ -1,9 +1,8 @@
 import click
 import colorama
+from click_help_colors import HelpColorsCommand
 
 from rush_cli.run_tasks import RunTasks
-from rush_cli.read_tasks import ViewTasks
-from click_help_colors import HelpColorsCommand
 
 # Don't strip colors.
 colorama.init(strip=False)
@@ -39,14 +38,12 @@ colorama.init(strip=False)
 @click.argument("filter_names", required=False, nargs=-1)
 def entrypoint(*, filter_names, hide_outputs, hide_commands, ignore_errors, view_tasks):
     """A Minimalistic Bash Task Runner"""
-    if not view_tasks:
-        run_tasks_obj = RunTasks(
-            *filter_names,
-            show_outputs=hide_outputs,
-            show_commands=hide_commands,
-            catch_errors=ignore_errors,
-        )
-        run_tasks_obj.run_all_tasks()
-    else:
-        obj = ViewTasks()
-        obj.view_tasks()
+
+    run_tasks_obj = RunTasks(
+        *filter_names,
+        show_outputs=hide_outputs,
+        show_commands=hide_commands,
+        catch_errors=ignore_errors,
+        view_tasks=view_tasks
+    )
+    run_tasks_obj.run_all_tasks()

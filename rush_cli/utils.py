@@ -66,7 +66,6 @@ def beautify_skiptask_name(task_name):
     click.echo(task_name)
     click.echo("")
 
-
 def beautify_cmd(cmd):
     if not cmd.startswith("#"):
         separator = "=>"

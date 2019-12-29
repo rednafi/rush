@@ -1,11 +1,12 @@
 import os
-import sys
 import subprocess
+import sys
+from collections import OrderedDict
+from pprint import pprint
+
 import click
 import pretty_errors
 import yaml
-from pprint import pprint
-from collections import OrderedDict
 
 from rush_cli.utils import find_shell_path
 
@@ -69,14 +70,3 @@ class ReadTasks:
                     "Error: rushfile.yml is not properly formatted", fg="magenta"
                 )
             )
-
-
-class ViewTasks(ReadTasks):
-    def __init__(self):
-        super().__init__()
-        self.rushfile = self._check_rushfiles()
-
-    def view_tasks(self):
-        subprocess.run(
-            ["pygmentize", "-f", "256", "-O", "style=monokai", self.rushfile]
-        )

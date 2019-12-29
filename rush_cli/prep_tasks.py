@@ -6,7 +6,7 @@ import click
 import pretty_errors
 
 from rush_cli.read_tasks import ReadTasks
-from rush_cli.utils import split_lines, strip_spaces, remove_comments
+from rush_cli.utils import remove_comments, split_lines, strip_spaces
 
 
 class PrepTasks(ReadTasks):
