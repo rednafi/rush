@@ -1,5 +1,8 @@
 import os
+import subprocess
 import sys
+from collections import OrderedDict
+from pprint import pprint
 
 import click
 import pretty_errors
@@ -11,9 +14,8 @@ from rush_cli.utils import find_shell_path
 class ReadTasks:
     """Class for preprocessing tasks before running."""
 
-    def __init__(self, *filter_names):
+    def __init__(self):
         self.use_shell = find_shell_path("bash")
-        self.filter_names = filter_names
 
     def _check_rushfiles(self):
         """Check if there are multiple rushfiles in the same directory."""
