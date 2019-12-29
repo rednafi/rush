@@ -6,7 +6,7 @@ import click
 import pretty_errors
 
 from rush_cli.read_tasks import ReadTasks
-from rush_cli.utils import split_lines, strip_spaces
+from rush_cli.utils import split_lines, strip_spaces, remove_comments
 
 
 class PrepTasks(ReadTasks):
@@ -24,6 +24,8 @@ class PrepTasks(ReadTasks):
             for task_name, task_chunk in yml_content.items():
                 task_chunk = strip_spaces(task_chunk)
                 task_chunk = split_lines(task_chunk)
+                task_chunk = remove_comments(task_chunk)
+
                 cleaned_tasks[task_name] = task_chunk
 
             return cleaned_tasks

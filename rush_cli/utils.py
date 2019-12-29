@@ -12,6 +12,10 @@ def strip_spaces(st):
 def split_lines(st):
     return st.split("\n")
 
+def remove_comments(task_chunk: list) -> list:
+    task_chunk = [task for task in task_chunk if not task.startswith("#")]
+    return task_chunk
+
 
 def find_shell_path(shell_name):
     """Finds out system's bash interpreter path"""
@@ -43,32 +47,30 @@ def find_shell_path(shell_name):
         sys.exit(1)
 
 
-def beautify_task_name(task_name, is_color=True):
+def beautify_task_name(task_name):
     task_name = f"{task_name}:"
     underline_len = len(task_name) + 3
     underline = "=" * underline_len
 
-    if is_color:
-        task_name = str(click.style(task_name, fg="yellow"))
-        underline = str(click.style(underline, fg="green"))
+    task_name = str(click.style(task_name, fg="yellow"))
+    underline = str(click.style(underline, fg="green"))
 
     click.echo(task_name)
     click.echo(underline)
 
 
-def beautify_skiptask_name(task_name, is_color=True):
+def beautify_skiptask_name(task_name):
     task_name = f"=> Ignoring task {task_name}"
-    if is_color:
-        task_name = click.style(task_name, fg="blue")
+    task_name = click.style(task_name, fg="blue")
     click.echo(task_name)
 
 
-def beautify_cmd(cmd, is_color=True):
-    separator = "=>"
-    if is_color:
+def beautify_cmd(cmd):
+    if not cmd.startswith("#"):
+        separator = "=>"
         cmd = str(click.style(cmd, fg="cyan"))
         separator = str(click.style(separator, fg="cyan"))
-    click.echo(f"{separator} {cmd}")
+        click.echo(f"{separator} {cmd}")
 
 
 def run_task(use_shell, command, interactive=True, capture_err=True):

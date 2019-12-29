@@ -19,35 +19,36 @@ class RunTasks(PrepTasks):
         self,
         *filter_names,
         interactive=True,
-        is_color=True,
         print_cmd=True,
         capture_err=True,
+        view_tasks=False
     ):
         super().__init__(*filter_names)
         self.interactive = interactive
-        self.is_color = is_color
         self.print_cmd = print_cmd
         self.capture_err = capture_err
         self.cleaned_tasks = self.get_prepared_tasks()
+        self.view_tasks = view_tasks
 
     def run_all_tasks(self):
         for task_name, task_chunk in self.cleaned_tasks.items():
-            if task_name.startswith("//"):
+            if task_name.startswith("//") and not self.view_tasks:
                 task_name = task_name.replace("//", "")
-                beautify_skiptask_name(task_name, is_color=self.is_color)
+                beautify_skiptask_name(task_name)
 
             else:
-                beautify_task_name(task_name, is_color=self.is_color)
+                beautify_task_name(task_name)
                 for cmd in task_chunk:
-                    if self.print_cmd and cmd.startswith("#") is False:
+                    if self.print_cmd:
                         beautify_cmd(cmd)
                     try:
-                        run_task(
-                            self.use_shell,
-                            cmd,
-                            interactive=self.interactive,
-                            capture_err=self.capture_err,
-                        )
+                        if not self.view_tasks:
+                            run_task(
+                                self.use_shell,
+                                cmd,
+                                interactive=self.interactive,
+                                capture_err=self.capture_err,
+                            )
                     except subprocess.CalledProcessError as e:
                         click.echo(e)
                         sys.exit(1)
