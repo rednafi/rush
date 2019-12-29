@@ -68,25 +68,25 @@ This should show:
 
 ### Running Tasks
 
-* **Run all the tasks:**
+* **Run all the tasks**
     ```
     $ rush
     ```
 
-* **Run specific tasks:**
+* **Run specific tasks**
     ```
     $ rush task_1 task_4
     ```
-* **Run tasks non interactively:** (supress the outputs)
+* **Run tasks non interactively** (supress the outputs)
     ```
     $ rush --hide-outputs
     ```
-* **Run tasks without printing individual commands:**
+* **Run tasks without printing individual commands**
     ```
     $ rush task_1 task_2 --hide-commands
     ```
 
-* **Run tasks ignoring errors:**
+* **Run tasks ignoring errors**
     ```
     $ rush --ignore-errors
     ```
@@ -96,10 +96,12 @@ This should show:
     $ rush --view-tasks
     ```
 
-* **View individual tasks without running:**
+* **View filtered tasks without running**
     ```
-    $rush task_2 --view-tasks
+    $rush task_2 task_1 --view-tasks
     ```
+    ![img](./img/rush-view.png)
+
 
 ## Quirks
 
