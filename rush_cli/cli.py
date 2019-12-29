@@ -3,6 +3,7 @@ import colorama
 from click_help_colors import HelpColorsCommand
 
 from rush_cli.run_tasks import RunTasks
+from rush_cli.utils import check_version
 
 # Don't strip colors.
 colorama.init(strip=False)
@@ -29,21 +30,25 @@ colorama.init(strip=False)
     help="Option to disable printing commands.",
 )
 @click.option(
-    "--ignore-errors",
-    is_flag=True,
-    default=True,
-    help="Option to ignore errors.",
+    "--ignore-errors", is_flag=True, default=True, help="Option to ignore errors."
 )
-@click.option("--view-tasks", is_flag=True, default=False, help="Option to view tasks")
+@click.option("--view-tasks", is_flag=True, default=False, help="Option to view tasks.")
+@click.option("--version", is_flag=True, default=False, help="Show rush version.")
 @click.argument("filter_names", required=False, nargs=-1)
-def entrypoint(*, filter_names, hide_outputs, hide_commands, ignore_errors, view_tasks):
+def entrypoint(
+    *, filter_names, hide_outputs, hide_commands, ignore_errors, view_tasks, version
+):
     """A Minimalistic Bash Task Runner"""
+    if not version:
+        run_tasks_obj = RunTasks(
+            *filter_names,
+            show_outputs=hide_outputs,
+            show_commands=hide_commands,
+            catch_errors=ignore_errors,
+            view_tasks=view_tasks,
+        )
+        run_tasks_obj.run_all_tasks()
 
-    run_tasks_obj = RunTasks(
-        *filter_names,
-        show_outputs=hide_outputs,
-        show_commands=hide_commands,
-        catch_errors=ignore_errors,
-        view_tasks=view_tasks
-    )
-    run_tasks_obj.run_all_tasks()
+    else:
+        version = check_version()
+        click.secho(f"Rush version: {version}", fg="green")

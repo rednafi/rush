@@ -3,6 +3,7 @@ import subprocess
 import sys
 
 import click
+import toml
 
 
 def strip_spaces(st):
@@ -91,3 +92,15 @@ def run_task(use_shell, command, interactive=True, catch_error=True):
         capture_output=False,
     )
     click.echo("")
+
+
+def check_version():
+    file_path = "./pyproject.toml"
+    try:
+        with open(file_path) as file:
+            toml_content = toml.load(file, _dict=dict)
+            version = toml_content.get("tool").get("poetry").get("version")
+        return version
+
+    except FileNotFoundError:
+        sys.exit(click.style("Error: pyproject.toml file not found.", fg="magenta"))
