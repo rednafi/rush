@@ -8,6 +8,8 @@ from rush_cli.utils import check_version
 # Don't strip colors.
 colorama.init(strip=False)
 
+VERSION = "0.3.3"
+
 
 @click.command(
     context_settings=dict(
@@ -50,5 +52,5 @@ def entrypoint(
         run_tasks_obj.run_all_tasks()
 
     else:
-        version = check_version()
+        version = VERSION
         click.secho(f"Rush version: {version}", fg="green")
