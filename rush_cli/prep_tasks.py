@@ -13,7 +13,8 @@ class PrepTasks(ReadTasks):
     """Class for preprocessing tasks before running."""
 
     def __init__(self, *filter_names):
-        super().__init__(*filter_names)
+        super().__init__()
+        self.filter_names = filter_names
 
     @staticmethod
     def _clean_tasks(yml_content):

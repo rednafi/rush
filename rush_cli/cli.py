@@ -41,7 +41,6 @@ def entrypoint(*, filter_names, hide_outputs, hide_commands, ignore_errors, view
     """A Minimalistic Bash Task Runner"""
     if not view_tasks:
         run_tasks_obj = RunTasks(
-            
             *filter_names,
             show_outputs=hide_outputs,
             show_commands=hide_commands,
