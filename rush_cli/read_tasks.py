@@ -1,8 +1,5 @@
 import os
-import subprocess
 import sys
-from collections import OrderedDict
-from pprint import pprint
 
 import click
 import pretty_errors
@@ -21,11 +18,17 @@ class ReadTasks:
         """Check if there are multiple rushfiles in the same directory."""
 
         rushfiles = []
-        for file in os.listdir("./"):
-            if file.startswith("rushfile") and (
-                file.endswith(".yml") or file.endswith(".yaml")
-            ):
-                rushfiles.append(file)
+        current_path = os.listdir("./")
+
+        if current_path:
+            for file in current_path:
+                filename = file.split(".")[0]
+                extension = file.split(".")[-1]
+
+                if filename == "rushfile" and (
+                    extension == "yml" or extension == "yaml"
+                ):
+                    rushfiles.append(file)
 
         if len(rushfiles) < 1:
             sys.exit(
@@ -37,9 +40,7 @@ class ReadTasks:
         elif len(rushfiles) > 1:
             sys.exit(
                 click.style(
-                    "Error: Multiple rushfiles [rushfile.yml/rushfile.yaml]"
-                    " in the same directory.",
-                    fg="magenta",
+                    "Error: Multiple rushfiles" " in the same directory.", fg="magenta"
                 )
             )
         else:
@@ -47,7 +48,6 @@ class ReadTasks:
         return rushfile
 
     def read_yml(self):
-
         rushfile = self._check_rushfiles()
         try:
             if rushfile.endswith(".yml"):
@@ -65,8 +65,12 @@ class ReadTasks:
                 return yml_content
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
-            sys.exit(
-                click.style(
-                    "Error: rushfile.yml is not properly formatted", fg="magenta"
-                )
-            )
+            click.secho("Error: rushfile.yml is not properly formatted", fg="magenta")
+            sys.exit(1)
+
+        except AttributeError:
+            click.secho("Error: rushfile.yml is empty", fg="magenta")
+            sys.exit(0)
+
+
+
