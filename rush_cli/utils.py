@@ -77,17 +77,22 @@ def run_task(cmd, cmd_name, interactive=True, catch_error=True):
     click.secho(f" {cmd_name}:", fg='yellow')
     click.secho(f" {'='*len(cmd_name)}", fg='green')
 
-    for line in result.stdout.splitlines():
-        click.echo("  | " + line)
-
-    for line in result.stderr.splitlines():
-        click.secho("  | " + line, fg='magenta')
-
+    if interactive:
+        for line in result.stdout.splitlines():
+            click.echo("  | " + line)
+        if not catch_error:
+            for line in result.stderr.splitlines():
+                click.secho("  | " + line, fg='magenta')
+        else:
+            for line in result.stderr.splitlines():
+                click.secho("  | " + line, fg='magenta')
+                click.echo('err')
+                sys.exit(1)
 
 cmd = """ls -a | grep git
-sudo ls
+sudo l
 echo 'hello'
 """
-print(run_task(cmd, "task_1"))
+print(run_task(cmd, "task_1", interactive=False))
 # result = run(cmd, shell=find_shell_path(), hide=True, warn=True)
 # print(result.exited)
