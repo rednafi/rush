@@ -72,27 +72,30 @@ def find_shell_path(shell_name="bash"):
 
 def run_task(cmd, cmd_name, interactive=True, catch_error=True):
     use_shell = find_shell_path()
-    result = run(cmd, shell=use_shell, hide=True, warn=False)
 
     click.secho(f" {cmd_name}:", fg='yellow')
     click.secho(f" {'='*len(cmd_name)}", fg='green')
 
+    result = run(cmd, shell=use_shell, hide=True, warn=True)
+
     if interactive:
         for line in result.stdout.splitlines():
             click.echo("  | " + line)
+
         if not catch_error:
             for line in result.stderr.splitlines():
                 click.secho("  | " + line, fg='magenta')
-        else:
+        elif catch_error:
             for line in result.stderr.splitlines():
                 click.secho("  | " + line, fg='magenta')
                 click.echo('err')
                 sys.exit(1)
 
-cmd = """ls -a | grep git
-sudo l
-echo 'hello'
+cmd = """
+git status
+git add .
+git commit -m "d"
 """
-print(run_task(cmd, "task_1", interactive=False))
+print(run_task(cmd, "task_1", interactive=True, catch_error=False))
 # result = run(cmd, shell=find_shell_path(), hide=True, warn=True)
 # print(result.exited)
