@@ -3,6 +3,7 @@ import subprocess
 import sys
 
 import click
+from invoke import run
 
 
 def strip_spaces(st):
@@ -16,38 +17,6 @@ def split_lines(st):
 def remove_comments(task_chunk: list) -> list:
     task_chunk = [task for task in task_chunk if not task.startswith("#")]
     return task_chunk
-
-
-def find_shell_path(shell_name):
-    """Finds out system's bash interpreter path"""
-
-    if not os.name == "nt":
-        cmd = ["which", "-a", shell_name]
-    else:
-        cmd = ["where", shell_name]
-
-    try:
-        c = subprocess.run(
-            cmd, universal_newlines=True, check=True, capture_output=True
-        )
-        output = c.stdout.split("\n")
-        output = [_ for _ in output if _]
-
-        _shell_paths = [f"/bin/{shell_name}", f"/usr/bin/{shell_name}"]
-
-        for path in output:
-            if path == _shell_paths[0]:
-                return path
-            elif path == _shell_paths[1]:
-                return path
-
-    except subprocess.CalledProcessError:
-        click.echo(
-            click.style(
-                "Error: Bash not found. Install Bash to use Rush.", fg="magenta"
-            )
-        )
-        sys.exit(1)
 
 
 def beautify_task_name(task_name):
@@ -77,17 +46,48 @@ def beautify_cmd(cmd):
         click.echo(f"{separator} {cmd}")
 
 
-def run_task(use_shell, command, interactive=True, catch_error=True):
-    std_out = sys.stdout if interactive else subprocess.PIPE
-    std_in = sys.stdin if interactive else subprocess.PIPE
+def find_shell_path(shell_name="bash"):
+    """Finds out system's bash interpreter path"""
 
-    res = subprocess.run(
-        [use_shell, "-c", command],
-        stdout=std_out,
-        stdin=std_in,
-        stderr=std_out,
-        universal_newlines=True,
-        check=catch_error,
-        capture_output=False,
-    )
-    click.echo("")
+    if not os.name == "nt":
+        cmd = ["which", "-a", shell_name]
+    else:
+        cmd = ["where", shell_name]
+
+    try:
+        c = subprocess.run(
+            cmd, universal_newlines=True, check=True, capture_output=True
+        )
+        output = c.stdout.split("\n")
+        output = [_ for _ in output if _]
+
+        for path in output:
+            if path == f"/bin/{shell_name}":
+                return path
+
+    except subprocess.CalledProcessError:
+        click.secho("Error: Bash not found. Install Bash to use Rush.", fg="magenta")
+        sys.exit(1)
+
+
+def run_task(cmd, cmd_name, interactive=True, catch_error=True):
+    use_shell = find_shell_path()
+    result = run(cmd, shell=use_shell, hide=True, warn=False)
+
+    click.secho(f" {cmd_name}:", fg='yellow')
+    click.secho(f" {'='*len(cmd_name)}", fg='green')
+
+    for line in result.stdout.splitlines():
+        click.echo("  | " + line)
+
+    for line in result.stderr.splitlines():
+        click.secho("  | " + line, fg='magenta')
+
+
+cmd = """ls -a | grep git
+sudo ls
+echo 'hello'
+"""
+print(run_task(cmd, "task_1"))
+# result = run(cmd, shell=find_shell_path(), hide=True, warn=True)
+# print(result.exited)
