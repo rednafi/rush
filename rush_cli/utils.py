@@ -3,7 +3,7 @@ import subprocess
 import sys
 
 import click
-from invoke import run
+import shlex
 
 
 def strip_spaces(st):
@@ -70,41 +70,31 @@ def find_shell_path(shell_name="bash"):
         sys.exit(1)
 
 
-def run_task(cmd, cmd_name, interactive=True, catch_error=True):
-    use_shell = find_shell_path()
-
-    click.echo("")
-    click.secho(f" {cmd_name}:", fg='yellow')
-    click.secho(f" {'='*len(cmd_name)}", fg='green')
-
-    result = run(cmd, shell=use_shell, hide=True, warn=True,)
-
-    if interactive:
-        for line in result.stdout.splitlines():
-            click.echo("  | " + line)
-
-        if not catch_error:
-            for line in result.stderr.splitlines():
-                click.secho("  | " + line, fg='magenta')
-
-        elif catch_error:
-            for line in result.stderr.splitlines():
-                click.secho("  | " + line, fg='magenta')
-                sys.exit(1)
-    else:
-        if catch_error:
-            sys.exit(1)
-
-
-
 cmd = """
-ec ls
+echo "a"
+echo "b"
+echo "c"
+ls -a | grep git
+
+sert df
+read -p "Enter numeric value: " myvar
+if [ $myvar -gt 10 ]
+then
+    echo "Value is greater than 10"
+fi
+
 """
-m = ((cmd, "task_1"), (cmd, "task_2"))
+interactive = True
+std_in = sys.stdin if interactive else subprocess.PIPE
+std_out = sys.stdout if interactive else subprocess.PIPE
 
-for t in m:
-    cmd, name = t
-    run_task(cmd, name, interactive=True, catch_error=False)
+process = subprocess.Popen(
+    ["/bin/bash", "-c", cmd],
+    stdin=std_in,
+    stdout=std_out,
+    universal_newlines=True,
 
-# result = run(cmd, shell=find_shell_path(), hide=True, warn=True)
-# print(result.exited)
+)
+
+return_code = process.wait()
+
