@@ -3,7 +3,6 @@ import subprocess
 import sys
 
 import click
-import toml
 
 
 def strip_spaces(st):
