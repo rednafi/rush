@@ -47,3 +47,5 @@ def entrypoint(*, filter_names, all, hide_outputs, ignore_errors, version):
 
     elif version:
         click.secho(f"Rush version: {VERSION}", fg="green")
+
+

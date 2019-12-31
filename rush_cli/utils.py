@@ -59,6 +59,7 @@ def find_shell_path(shell_name="bash"):
 
 def run_task(task, task_name, interactive=True, catch_errors=True):
     use_shell = find_shell_path()
+    
     std_in = sys.stdin if interactive else subprocess.PIPE
     std_out = sys.stdout if interactive else subprocess.PIPE
 
