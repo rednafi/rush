@@ -1,4 +1,10 @@
 task_1: |
+
+    read -p "Enter numeric value:" myvar
+    if [ $myvar -gt 10 ]
+    then
+        echo "Value is greater than 10"
+    fi
     echo "task1 is running"
     ls
 
