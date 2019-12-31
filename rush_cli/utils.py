@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+
 import click
 
 
@@ -47,7 +48,6 @@ def find_shell_path(shell_name="bash"):
         output = c.stdout.split("\n")
         output = [_ for _ in output if _]
 
-
         for path in output:
             if path == f"/bin/{shell_name}":
                 return path
@@ -59,7 +59,7 @@ def find_shell_path(shell_name="bash"):
 
 def run_task(task, task_name, interactive=True, catch_errors=True):
     use_shell = find_shell_path()
-    
+
     std_in = sys.stdin if interactive else subprocess.PIPE
     std_out = sys.stdout if interactive else subprocess.PIPE
 

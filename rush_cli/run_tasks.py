@@ -1,10 +1,5 @@
-import subprocess
-import sys
-
-import click
-
 from rush_cli.prep_tasks import PrepTasks
-from rush_cli.utils import beautify_skiptask_name, beautify_task_name, run_task
+from rush_cli.utils import beautify_skiptask_name, run_task
 
 
 class RunTasks(PrepTasks):
@@ -27,4 +22,3 @@ class RunTasks(PrepTasks):
                 )
             else:
                 beautify_skiptask_name(task_name)
-

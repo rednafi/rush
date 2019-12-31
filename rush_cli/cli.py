@@ -1,13 +1,15 @@
+import sys
+
 import click
 import colorama
 from click_help_colors import HelpColorsCommand
-import sys
+
 from rush_cli.run_tasks import RunTasks
 
 # Don't strip colors.
 colorama.init(strip=False)
 
-VERSION = "0.3.5"
+VERSION = "0.3.6"
 
 
 @click.command(
@@ -36,7 +38,7 @@ def entrypoint(*, filter_names, all, hide_outputs, ignore_errors, version):
     """A Minimalistic Bash Task Runner"""
 
     if len(sys.argv) == 1:
-        entrypoint.main(['-h'])
+        entrypoint.main(["-h"])
 
     elif all and not filter_names:
         run_tasks_obj = RunTasks(show_outputs=hide_outputs, catch_errors=ignore_errors)
@@ -50,4 +52,3 @@ def entrypoint(*, filter_names, all, hide_outputs, ignore_errors, version):
 
     elif version:
         click.secho(f"Rush version: {VERSION}", fg="green")
-
