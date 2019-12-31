@@ -86,4 +86,3 @@ class PrepTasks(ReadTasks):
         # apply filter
         cleaned_tasks = self._filter_tasks(cleaned_tasks, *self.filter_names)
         return cleaned_tasks
-

@@ -1,7 +1,6 @@
 import os
 import subprocess
 import sys
-
 import click
 
 
@@ -29,6 +28,7 @@ def beautify_task_name(task_name):
 def beautify_skiptask_name(task_name):
     task_name = f"=> Ignoring task {task_name}"
     task_name = click.style(task_name, fg="blue")
+    click.echo("")
     click.echo(task_name)
 
 
@@ -46,6 +46,7 @@ def find_shell_path(shell_name="bash"):
         )
         output = c.stdout.split("\n")
         output = [_ for _ in output if _]
+
 
         for path in output:
             if path == f"/bin/{shell_name}":
@@ -74,12 +75,3 @@ def run_task(task, task_name, interactive=True, catch_errors=True):
     except subprocess.CalledProcessError:
         click.secho("Error occured: Shutting down")
         sys.exit(1)
-
-
-# cmd = """
-# pip install pandas
-# pip uninstall numpy
-# """
-
-# obj = Bash(interactive=True, catch_errors=False)
-# obj.run_task(cmd, "task_4")

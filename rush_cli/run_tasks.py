@@ -28,9 +28,3 @@ class RunTasks(PrepTasks):
             else:
                 beautify_skiptask_name(task_name)
 
-
-# run_tasks_obj = RunTasks(
-#             show_outputs=True,
-#             catch_errors=True,
-#         )
-# run_tasks_obj.run_all_tasks()

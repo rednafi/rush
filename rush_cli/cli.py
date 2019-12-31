@@ -19,6 +19,9 @@ VERSION = "0.3.5"
     help_options_color="green",
 )
 @click.option(
+    "--all", "-a", is_flag=True, default=False, multiple=True, help="Run all tasks."
+)
+@click.option(
     "--hide-outputs",
     is_flag=True,
     default=True,
@@ -29,18 +32,18 @@ VERSION = "0.3.5"
 )
 @click.option("--version", is_flag=True, default=False, help="Show rush version.")
 @click.argument("filter_names", required=False, nargs=-1)
-def entrypoint(
-    *, filter_names, hide_outputs, ignore_errors, version
-):
+def entrypoint(*, filter_names, all, hide_outputs, ignore_errors, version):
     """A Minimalistic Bash Task Runner"""
-    if not version:
+
+    if all and not filter_names:
+        run_tasks_obj = RunTasks(show_outputs=hide_outputs, catch_errors=ignore_errors)
+        run_tasks_obj.run_all_tasks()
+
+    elif filter_names:
         run_tasks_obj = RunTasks(
-            *filter_names,
-            show_outputs=hide_outputs,
-            catch_errors=ignore_errors,
+            *filter_names, show_outputs=hide_outputs, catch_errors=ignore_errors
         )
         run_tasks_obj.run_all_tasks()
 
-    else:
-        version = VERSION
-        click.secho(f"Rush version: {version}", fg="green")
+    elif version:
+        click.secho(f"Rush version: {VERSION}", fg="green")
