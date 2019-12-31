@@ -1,6 +1,6 @@
 task_1: |
     echo "task1 is running"
-    ls
+
 
 task_2: |
     # Task chaining [task_1 is a dependency of task_2]
@@ -9,7 +9,8 @@ task_2: |
 
 task_3: |
     ls -a
-    echo "task_3 is running"
+    sudo apt-get install cowsay | head -n 0
+    cowsay "Around the world in 80 days!"
 
 //task_4: |
     # Ignoring a task [task_4 will be ignored while execution]
