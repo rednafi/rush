@@ -9,17 +9,13 @@
 </div>
 
 
-* You can you ignore task execution by adding `//` before taskname in the `rushfile.yml`
-
-
 ## Features
-* Supports all bash commands
-* By default, runs commands in interactive mode
-* Highlights the commands as they get executed
-* Option to catch or ignore command errors
-* Option to show or supress command outputs
-* Command chaining is supported (See the example `rushfile.yml` where `task_2` is chained to `task_1`)
-* Individual tasks can be ignored
+* Supports all **bash** commands
+* Option to ignore or run specific tasks
+* By default, runs commands in **interactive** mode
+* Option to catch or ignore **command errors**
+* Option to show or supress **command outputs**
+* **Command chaining is supported** (See the example `rushfile.yml` where `task_2` is chained to `task_1`)
 
 ## Installation
 
@@ -33,9 +29,10 @@ $ pip3 install rush-cli
 Here is an example `rushfile.yml`. It needs to reside in the root directory:
 
 ``` yml
+# rushfile.yml
+
 task_1: |
     echo "task1 is running"
-    ls
 
 task_2: |
     # Task chaining [task_1 is a dependency of task_2]
@@ -43,8 +40,9 @@ task_2: |
     echo "task2 is running"
 
 task_3: |
-    l -a
-    echo "task_3 is running"
+    ls -a
+    sudo apt-get install cowsay | head -n 0
+    cowsay "Around the world in 80 days!"
 
 //task_4: |
     # Ignoring a task [task_4 will be ignored while execution]
@@ -60,6 +58,10 @@ task_5: |
 ### Available Options
 To see all the available options, run:
 ```
+$ rush
+```
+or,
+```
 $ rush --help
 ```
 This should show:
@@ -70,13 +72,25 @@ This should show:
 
 * **Run all the tasks**
     ```
-    $ rush
+    $ rush --all
     ```
 
 * **Run specific tasks**
     ```
     $ rush task_1 task_4
     ```
+* **Ignore specific tasks**
+
+    See the example `rushfile.yml` where the `'//'` before a task name means that the task will be ignored during execution
+
+    ```
+    # rushfile.yml
+
+    //task_4: |
+        echo "This task will be ignored during execution."
+    ```
+    This ignores the task named `//task_4`.
+
 * **Run tasks non interactively** (supress the outputs)
     ```
     $ rush --hide-outputs
@@ -90,18 +104,6 @@ This should show:
     ```
     $ rush --ignore-errors
     ```
-
-* **View tasks without running**
-    ```
-    $ rush --view-tasks
-    ```
-
-* **View filtered tasks without running**
-    ```
-    $rush task_2 task_1 --view-tasks
-    ```
-    ![img](./img/rush-view.png)
-
 
 ## Quirks
 
