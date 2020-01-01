@@ -31,18 +31,15 @@ class ReadTasks:
                     rushfiles.append(file)
 
         if len(rushfiles) < 1:
-            sys.exit(
-                click.style(
-                    "Error: Rushfile [rushfile.yml/rushfile.yaml] not found.",
-                    fg="magenta",
-                )
+            click.secho(
+                "Error: Rushfile [rushfile.yml/rushfile.yaml] not found.", fg="magenta"
             )
+            sys.exit(1)
         elif len(rushfiles) > 1:
-            sys.exit(
-                click.style(
-                    "Error: Multiple rushfiles" " in the same directory.", fg="magenta"
-                )
+            click.secho(
+                "Error: Multiple rushfiles" " in the same directory.", fg="magenta"
             )
+            sys.exit(1)
         else:
             rushfile = rushfiles[0]
         return rushfile

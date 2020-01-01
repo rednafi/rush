@@ -57,14 +57,14 @@ def find_shell_path(shell_name="bash"):
         sys.exit(1)
 
 
-def run_task(task, task_name, interactive=True, catch_errors=True):
-    use_shell = find_shell_path()
+def run_task(task: str, task_name: str, interactive=True, catch_errors=True):
+    """Primary function that runs a task chunk."""
 
+    use_shell = find_shell_path()
     std_in = sys.stdin if interactive else subprocess.PIPE
     std_out = sys.stdout if interactive else subprocess.PIPE
 
     beautify_task_name(task_name)
-
     try:
         process = subprocess.run(
             [use_shell, "-c", task],

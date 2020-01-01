@@ -25,13 +25,12 @@ class PrepTasks(ReadTasks):
             for task_name, task_chunk in yml_content.items():
                 task_chunk = strip_spaces(task_chunk)
                 task_chunk = split_lines(task_chunk)
-                # task_chunk = remove_comments(task_chunk)
-
                 cleaned_tasks[task_name] = task_chunk
 
             return cleaned_tasks
         except AttributeError:
-            sys.exit(click.style("Error: Rushfile is empty.", fg="magenta"))
+            click.secho("Error: Rushfile is empty.", fg="magenta")
+            sys.exit(1)
 
     @classmethod
     def _replace_placeholder_tasks(cls, task_chunk: list, cleaned_tasks: dict) -> list:
@@ -66,7 +65,8 @@ class PrepTasks(ReadTasks):
                 filtered_tasks = {k: cleaned_tasks[k] for k in filter_names}
                 return filtered_tasks
             except KeyError:
-                sys.exit(click.style("Error: Task does not exist.", fg="magenta"))
+                click.secho("Error: Task does not exist.", fg="magenta")
+                sys.exit(1)
         else:
             return cleaned_tasks
 
