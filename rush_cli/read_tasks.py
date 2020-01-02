@@ -5,7 +5,7 @@ import click
 import pretty_errors
 import yaml
 
-from rush_cli.utils import find_shell_path
+from rush_cli.utils import find_shell_path, walk_up
 
 
 class ReadTasks:
@@ -13,53 +13,32 @@ class ReadTasks:
 
     def __init__(self):
         self.use_shell = find_shell_path("bash")
+        self.filename = "rushfile.yml"
 
-    def _check_rushfiles(self):
-        """Check if there are multiple rushfiles in the same directory."""
+    def _find_rushfile(self, root=os.getcwd(), max_depth=4, topdown=False):
+        """Returns the path of a rushfile in parent directories."""
 
-        rushfiles = []
-        current_path = os.listdir("./")
+        try:
+            i = 0
+            for c, d, f in walk_up(root):
+                if i > max_depth:
+                    break
+                elif self.filename in f:
+                    return os.path.join(c, self.filename)
+                i += 1
 
-        if current_path:
-            for file in current_path:
-                filename = file.split(".")[0]
-                extension = file.split(".")[-1]
-
-                if filename == "rushfile" and (
-                    extension == "yml" or extension == "yaml"
-                ):
-                    rushfiles.append(file)
-
-        if len(rushfiles) < 1:
-            click.secho(
-                "Error: Rushfile [rushfile.yml/rushfile.yaml] not found.", fg="magenta"
-            )
+        except RuntimeError:
+            click.secho("Error: rushfile.yml not found.", fg="magenta")
             sys.exit(1)
-        elif len(rushfiles) > 1:
-            click.secho(
-                "Error: Multiple rushfiles" " in the same directory.", fg="magenta"
-            )
-            sys.exit(1)
-        else:
-            rushfile = rushfiles[0]
-        return rushfile
 
     def read_yml(self):
-        rushfile = self._check_rushfiles()
+        rushfile = self._find_rushfile()
         try:
-            if rushfile.endswith(".yml"):
-                with open("./rushfile.yml") as file:
-                    yml_content = yaml.load(file, Loader=yaml.FullLoader)
-                    # make sure the task names are strings
-                    yml_content = {str(k): v for k, v in yml_content.items()}
-                return yml_content
-
-            elif rushfile.endswith(".yaml"):
-                with open("./rushfile.yaml") as file:
-                    yml_content = yaml.load(file, Loader=yaml.FullLoader)
-                    # make sure the task names are strings
-                    yml_content = {str(k): v for k, v in yml_content.items()}
-                return yml_content
+            with open(rushfile) as file:
+                yml_content = yaml.load(file, Loader=yaml.FullLoader)
+                # make sure the task names are strings
+                yml_content = {str(k): v for k, v in yml_content.items()}
+            return yml_content
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
             click.secho("Error: rushfile.yml is not properly formatted", fg="magenta")
@@ -68,3 +47,7 @@ class ReadTasks:
         except AttributeError:
             click.secho("Error: rushfile.yml is empty", fg="magenta")
             sys.exit(1)
+
+
+# obj = ReadTasks()
+# print(obj.read_yml())

@@ -23,9 +23,10 @@ class PrepTasks(ReadTasks):
 
         try:
             for task_name, task_chunk in yml_content.items():
-                task_chunk = strip_spaces(task_chunk)
-                task_chunk = split_lines(task_chunk)
-                cleaned_tasks[task_name] = task_chunk
+                if task_chunk:
+                    task_chunk = strip_spaces(task_chunk)
+                    task_chunk = split_lines(task_chunk)
+                    cleaned_tasks[task_name] = task_chunk
 
             return cleaned_tasks
         except AttributeError:
@@ -74,8 +75,8 @@ class PrepTasks(ReadTasks):
         """Get the preprocessed task dict."""
 
         yml_content = self.read_yml()
+        print(yml_content)
         cleaned_tasks = self._clean_tasks(yml_content)
-
         # replace placeholders and flatten
         for task_name, task_chunk in cleaned_tasks.items():
             task_chunk = self._replace_placeholder_tasks(task_chunk, cleaned_tasks)
@@ -86,3 +87,4 @@ class PrepTasks(ReadTasks):
         # apply filter
         cleaned_tasks = self._filter_tasks(cleaned_tasks, *self.filter_names)
         return cleaned_tasks
+
