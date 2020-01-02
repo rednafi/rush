@@ -18,18 +18,16 @@ class ReadTasks:
     def _find_rushfile(self, root=os.getcwd(), max_depth=4, topdown=False):
         """Returns the path of a rushfile in parent directories."""
 
-        try:
-            i = 0
-            for c, d, f in walk_up(root):
-                if i > max_depth:
-                    break
-                elif self.filename in f:
-                    return os.path.join(c, self.filename)
-                i += 1
+        i = 0
+        for c, d, f in walk_up(root):
+            if i > max_depth:
+                break
+            elif self.filename in f:
+                return os.path.join(c, self.filename)
+            i += 1
 
-        except RuntimeError:
-            click.secho("Error: rushfile.yml not found.", fg="magenta")
-            sys.exit(1)
+        click.secho("Error: rushfile.yml not found.", fg="magenta")
+        sys.exit(1)
 
     def read_yml(self):
         rushfile = self._find_rushfile()
@@ -50,4 +48,4 @@ class ReadTasks:
 
 
 # obj = ReadTasks()
-# print(obj.read_yml())
+# print(obj._find_rushfile())

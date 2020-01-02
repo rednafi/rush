@@ -1,4 +1,3 @@
-import os
 import sys
 from collections import OrderedDict
 
@@ -21,17 +20,15 @@ class PrepTasks(ReadTasks):
         """Splitting stringified tasks into into a list of individual tasks."""
         cleaned_tasks = OrderedDict()
 
-        try:
-            for task_name, task_chunk in yml_content.items():
-                if task_chunk:
-                    task_chunk = strip_spaces(task_chunk)
-                    task_chunk = split_lines(task_chunk)
-                    cleaned_tasks[task_name] = task_chunk
+        for task_name, task_chunk in yml_content.items():
+            if task_chunk:
+                task_chunk = strip_spaces(task_chunk)
+                task_chunk = split_lines(task_chunk)
+                cleaned_tasks[task_name] = task_chunk
+            else:
+                cleaned_tasks[task_name] = ''
 
-            return cleaned_tasks
-        except AttributeError:
-            click.secho("Error: Rushfile is empty.", fg="magenta")
-            sys.exit(1)
+        return cleaned_tasks
 
     @classmethod
     def _replace_placeholder_tasks(cls, task_chunk: list, cleaned_tasks: dict) -> list:
@@ -75,7 +72,6 @@ class PrepTasks(ReadTasks):
         """Get the preprocessed task dict."""
 
         yml_content = self.read_yml()
-        print(yml_content)
         cleaned_tasks = self._clean_tasks(yml_content)
         # replace placeholders and flatten
         for task_name, task_chunk in cleaned_tasks.items():
@@ -87,4 +83,3 @@ class PrepTasks(ReadTasks):
         # apply filter
         cleaned_tasks = self._filter_tasks(cleaned_tasks, *self.filter_names)
         return cleaned_tasks
-

@@ -3,7 +3,6 @@
 task_1: |
     echo "task1 is running"
 
-
 task_2: |
     # Task chaining [task_1 is a dependency of task_2]
     task_1
@@ -27,13 +26,10 @@ task_6: |
     read -p 'Want to deploy docker container in detached mode? (y/n):' daemon
     if [[ $daemon=="y" ]]; then
         echo "Running container in detached mode."
-
-
     elif [[ $daemon=="n" ]]; then
         echo "Running container in attached mode."
     else
         echo "Running container in attached mode 2."
     fi
-
-task_7: |
- 
+    
+task_7:
