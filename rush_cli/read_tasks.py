@@ -45,4 +45,3 @@ class ReadTasks:
         except AttributeError:
             click.secho("Error: rushfile.yml is empty", fg="magenta")
             sys.exit(1)
-

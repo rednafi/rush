@@ -5,7 +5,7 @@ import click
 import pretty_errors
 
 from rush_cli.read_tasks import ReadTasks
-from rush_cli.utils import split_lines, strip_spaces, beautify_task_name
+from rush_cli.utils import split_lines, strip_spaces
 
 
 class PrepTasks(ReadTasks):
@@ -19,6 +19,7 @@ class PrepTasks(ReadTasks):
     @staticmethod
     def clean_tasks(yml_content):
         """Splitting stringified tasks into into a list of individual tasks."""
+
         cleaned_tasks = OrderedDict()
 
         for task_name, task_chunk in yml_content.items():
@@ -103,4 +104,3 @@ class Views(PrepTasks):
         rushfile_path = self.find_rushfile()
         click.echo("")
         click.secho(rushfile_path, fg="yellow")
-
