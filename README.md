@@ -104,6 +104,14 @@ This should show:
     ```
     $ rush --ignore-errors
     ```
+* **View absolute path of rushfile.yml**
+    ```
+    $ rush --path
+    ```
+    output,
+    ```
+    /home/rednafi/code/rush/rushfile.yml
+    ```
 
 ## Quirks
 
