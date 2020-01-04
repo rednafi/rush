@@ -28,8 +28,3 @@ class RunTasks(PrepTasks):
                 beautify_skiptask_name(task_name)
 
 
-# obj = PrepTasks(no_deps=True)
-# print(obj.get_prepared_tasks())
-
-# obj = RunTasks('task_2', no_deps=True)
-# obj.run_all_tasks()
