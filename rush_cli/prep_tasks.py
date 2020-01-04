@@ -11,9 +11,10 @@ from rush_cli.utils import split_lines, strip_spaces, beautify_task_name
 class PrepTasks(ReadTasks):
     """Class for preprocessing tasks before running."""
 
-    def __init__(self, *filter_names):
+    def __init__(self, *filter_names, no_deps=False):
         super().__init__()
         self.filter_names = filter_names
+        self.no_deps = no_deps
 
     @staticmethod
     def clean_tasks(yml_content):
@@ -30,16 +31,21 @@ class PrepTasks(ReadTasks):
 
         return cleaned_tasks
 
-    @classmethod
-    def _replace_placeholder_tasks(cls, task_chunk: list, cleaned_tasks: dict) -> list:
+    def _replace_placeholder_tasks(self, task_chunk: list, cleaned_tasks: dict) -> list:
         """Recursively replace dependant task names with actual task commands."""
 
         for idx, task in enumerate(task_chunk):
             if isinstance(task, str):
                 if task in cleaned_tasks.keys():
-                    task_chunk[idx] = cleaned_tasks[task]
+                    if not self.no_deps:
+                        task_chunk[idx] = cleaned_tasks[task]
+                    else:
+                        task_chunk[idx] = ""
             else:
-                task_chunk[idx] = cls._replace_placeholder_tasks(task, cleaned_tasks)
+                task_chunk[idx] = PrepTasks._replace_placeholder_tasks(
+                    task, cleaned_tasks
+                )
+
         return task_chunk
 
     @classmethod
@@ -86,6 +92,8 @@ class PrepTasks(ReadTasks):
 
 
 class Views(PrepTasks):
+    """View ad hoc tasks."""
+
     def __init__(self, *filter_names):
         super().__init__(*filter_names)
         self.filter_names = filter_names
@@ -95,3 +103,4 @@ class Views(PrepTasks):
         rushfile_path = self.find_rushfile()
         click.echo("")
         click.secho(rushfile_path, fg="yellow")
+

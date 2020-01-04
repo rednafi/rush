@@ -31,25 +31,36 @@ VERSION = "0.3.9"
     help="Option to hide interactive output.",
 )
 @click.option(
-    "--ignore-errors", is_flag=True, default=True, help="Option to ignore errors."
+    "--ignore-errors", is_flag=True, default=True, help="Option to ignore errors"
 )
-@click.option("--path", is_flag=True, default=False, help="Show the absolute path of rushfile.yml")
-@click.option("--version", is_flag=True, default=False, help="Show rush version.")
-
+@click.option(
+    "--path", is_flag=True, default=False, help="Show the absolute path of rushfile.yml"
+)
+@click.option(
+    "--no-deps", is_flag=True, default=None, help="Do not run dependent tasks"
+)
+@click.option("--version", is_flag=True, default=None, help="Show rush version")
 @click.argument("filter_names", required=False, nargs=-1)
-def entrypoint(*, filter_names, all, hide_outputs, ignore_errors, path, version):
+def entrypoint(
+    *, filter_names, all, hide_outputs, ignore_errors, path, no_deps, version
+):
     """A Minimalistic Bash Task Runner"""
 
     if len(sys.argv) == 1:
         entrypoint.main(["-h"])
 
     elif all and not filter_names:
-        run_tasks_obj = RunTasks(show_outputs=hide_outputs, catch_errors=ignore_errors)
+        run_tasks_obj = RunTasks(
+            show_outputs=hide_outputs, catch_errors=ignore_errors, no_deps=no_deps
+        )
         run_tasks_obj.run_all_tasks()
 
     elif filter_names:
         run_tasks_obj = RunTasks(
-            *filter_names, show_outputs=hide_outputs, catch_errors=ignore_errors
+            *filter_names,
+            show_outputs=hide_outputs,
+            catch_errors=ignore_errors,
+            no_deps=no_deps,
         )
         run_tasks_obj.run_all_tasks()
 
