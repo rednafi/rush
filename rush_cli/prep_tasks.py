@@ -89,34 +89,9 @@ class Views(PrepTasks):
     def __init__(self, *filter_names):
         super().__init__(*filter_names)
         self.filter_names = filter_names
-        self.task_dict = {}
 
     @property
     def view_rushpath(self):
-        return self.find_rushfile()
-
-    @property
-    def view_tasks(self):
-        yml_content = self.read_rushfile()
-        cleaned_tasks = self.clean_tasks(yml_content)
-        task_dict = {
-            k: v for k in cleaned_tasks.keys() for v in [[] * len(cleaned_tasks)]
-        }
-
-        for task_name, task_chunk in cleaned_tasks.items():
-            for idx, task in enumerate(task_chunk):
-                if isinstance(task, str):
-                    if task in cleaned_tasks.keys():
-                        task_dict[task_name].append(task)
-
-        for supertask, subtasks in task_dict.items():
-            click.secho(supertask, fg="green", bold=True)
-            click.secho("")
-            if subtasks:
-                for subtask in subtasks:
-                    click.echo(f" - subtask")
-                    click.echo("")
-
-
-obj = Views()
-print(obj.view_tasks)
+        rushfile_path = self.find_rushfile()
+        click.echo("")
+        click.secho(rushfile_path, fg="yellow")

@@ -4,6 +4,7 @@ import click
 import colorama
 from click_help_colors import HelpColorsCommand
 
+from rush_cli.prep_tasks import Views
 from rush_cli.run_tasks import RunTasks
 
 # Don't strip colors.
@@ -32,9 +33,11 @@ VERSION = "0.3.8"
 @click.option(
     "--ignore-errors", is_flag=True, default=True, help="Option to ignore errors."
 )
+@click.option("--path", is_flag=True, default=False, help="Show the absolute path of rushfile.yml")
 @click.option("--version", is_flag=True, default=False, help="Show rush version.")
+
 @click.argument("filter_names", required=False, nargs=-1)
-def entrypoint(*, filter_names, all, hide_outputs, ignore_errors, version):
+def entrypoint(*, filter_names, all, hide_outputs, ignore_errors, path, version):
     """A Minimalistic Bash Task Runner"""
 
     if len(sys.argv) == 1:
@@ -49,6 +52,10 @@ def entrypoint(*, filter_names, all, hide_outputs, ignore_errors, version):
             *filter_names, show_outputs=hide_outputs, catch_errors=ignore_errors
         )
         run_tasks_obj.run_all_tasks()
+
+    elif path:
+        views_obj = Views()
+        views_obj.view_rushpath
 
     elif version:
         click.secho(f"Rush version: {VERSION}", fg="green")

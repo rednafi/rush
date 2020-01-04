@@ -2,6 +2,7 @@
 
 task_1: |
     echo "task1 is running"
+    task_5
 
 task_2: |
     # Task chaining [task_1 is a dependency of task_2]
