@@ -31,5 +31,5 @@ task_6: |
     else
         echo "Running container in attached mode 2."
     fi
-    
+
 task_7:

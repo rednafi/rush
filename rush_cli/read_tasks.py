@@ -15,7 +15,7 @@ class ReadTasks:
         self.use_shell = find_shell_path("bash")
         self.filename = "rushfile.yml"
 
-    def _find_rushfile(self, root=os.getcwd(), max_depth=4, topdown=False):
+    def find_rushfile(self, root=os.getcwd(), max_depth=4, topdown=False):
         """Returns the path of a rushfile in parent directories."""
 
         i = 0
@@ -29,8 +29,8 @@ class ReadTasks:
         click.secho("Error: rushfile.yml not found.", fg="magenta")
         sys.exit(1)
 
-    def read_yml(self):
-        rushfile = self._find_rushfile()
+    def read_rushfile(self):
+        rushfile = self.find_rushfile()
         try:
             with open(rushfile) as file:
                 yml_content = yaml.load(file, Loader=yaml.FullLoader)
@@ -46,6 +46,3 @@ class ReadTasks:
             click.secho("Error: rushfile.yml is empty", fg="magenta")
             sys.exit(1)
 
-
-# obj = ReadTasks()
-# print(obj._find_rushfile())
