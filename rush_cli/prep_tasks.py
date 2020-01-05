@@ -104,3 +104,4 @@ class Views(PrepTasks):
         rushfile_path = self.find_rushfile()
         click.echo("")
         click.secho(rushfile_path, fg="yellow")
+
