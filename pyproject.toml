@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rush-cli"
-version = "0.3.9"
+version = "0.4.0"
 description = "Minimalistic bash task runner"
 authors = ["rednafi <redowan.nafi@gmail.com>"]
 license = "MIT"

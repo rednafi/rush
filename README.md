@@ -112,7 +112,11 @@ This should show:
     ```
     /home/rednafi/code/rush/rushfile.yml
     ```
-
+* **Do not run the dependent tasks**
+    ```
+    $ rush task_2 --no-deps
+    ```
+    
 ## Quirks
 
 * Rush runs all the commands using `/usr/bin/bash`. So shell specific syntax with other shebangs might throw error. In these cases, I encourage you to create dedicated shell scripts with proper shebang (`#!/usr/bin/env bash`) and add those as tasks in the rushfile.
