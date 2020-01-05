@@ -11,10 +11,10 @@ from rush_cli.utils import split_lines, strip_spaces
 class PrepTasks(ReadTasks):
     """Class for preprocessing tasks before running."""
 
-    def __init__(self, *filter_names, **kwargs):
+    def __init__(self, *filter_names, no_deps=False):
         super().__init__()
         self.filter_names = filter_names
-        
+        self.no_deps = no_deps
 
     @staticmethod
     def clean_tasks(yml_content):

@@ -27,14 +27,6 @@ version = "0.4.3"
 
 [[package]]
 category = "main"
-description = "Pythonic task execution"
-name = "invoke"
-optional = false
-python-versions = "*"
-version = "1.3.0"
-
-[[package]]
-category = "main"
 description = "Prettifies Python exception output to make it legible."
 name = "pretty-errors"
 optional = false
@@ -61,7 +53,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "5.2"
 
 [metadata]
-content-hash = "907638d1d69e91cfcc9f501815b5b8882b2c4a083dbb61038486abd477186763"
+content-hash = "7f4703e9ba20306f15dc432915cf9f5e43a562198237a09fa15bbbe278e6d7a8"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -76,11 +68,6 @@ click-help-colors = [
 colorama = [
     {file = "colorama-0.4.3-py2.py3-none-any.whl", hash = "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff"},
     {file = "colorama-0.4.3.tar.gz", hash = "sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"},
-]
-invoke = [
-    {file = "invoke-1.3.0-py2-none-any.whl", hash = "sha256:fc803a5c9052f15e63310aa81a43498d7c55542beb18564db88a9d75a176fa44"},
-    {file = "invoke-1.3.0-py3-none-any.whl", hash = "sha256:f4ec8a134c0122ea042c8912529f87652445d9f4de590b353d23f95bfa1f0efd"},
-    {file = "invoke-1.3.0.tar.gz", hash = "sha256:c52274d2e8a6d64ef0d61093e1983268ea1fc0cd13facb9448c4ef0c9a7ac7da"},
 ]
 pretty-errors = [
     {file = "pretty_errors-1.2.7-py3-none-any.whl", hash = "sha256:53b5130a0528c27c90d7b1e541200d3d64a6382001cadb528c2cae2215e4fc84"},
