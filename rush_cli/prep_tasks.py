@@ -6,10 +6,11 @@ import pretty_errors
 
 from rush_cli.read_tasks import ReadTasks
 from rush_cli.utils import (
+    beautify_task_cmd,
+    beautify_task_name,
     split_lines,
     strip_spaces,
-    beautify_task_name,
-    beautify_task_cmd,
+    scream
 )
 
 
@@ -113,6 +114,7 @@ class Views(PrepTasks):
     @property
     def view_tasks(self):
         cleaned_tasks = self.get_prepared_tasks()
+        scream(what='view')
         for k, v in cleaned_tasks.items():
             beautify_task_name(k)
             beautify_task_cmd(v)
