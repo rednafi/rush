@@ -2,9 +2,9 @@ import os
 import subprocess
 import sys
 
-from pygments.formatters import TerminalFormatter, HtmlFormatter
 import click
 from pygments import highlight
+from pygments.formatters import HtmlFormatter, TerminalFormatter
 from pygments.lexers import BashLexer
 
 

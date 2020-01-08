@@ -22,19 +22,23 @@ VERSION = "0.4.1"
     help_options_color="green",
 )
 @click.option(
-    "--all", "-a", is_flag=True, default=False, multiple=True, help="Run all tasks."
+    "--all", "-a", is_flag=True, default=None, multiple=True, help="Run all tasks"
 )
 @click.option(
     "--hide-outputs",
     is_flag=True,
     default=True,
-    help="Option to hide interactive output.",
+    help="Option to hide interactive output",
 )
 @click.option(
     "--ignore-errors", is_flag=True, default=True, help="Option to ignore errors"
 )
 @click.option(
-    "--path", is_flag=True, default=None, help="Show the absolute path of rushfile.yml"
+    "--path",
+    "-p",
+    is_flag=True,
+    default=None,
+    help="Show the absolute path of rushfile.yml",
 )
 @click.option(
     "--no-deps", is_flag=True, default=None, help="Do not run dependent tasks"
