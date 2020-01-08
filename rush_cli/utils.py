@@ -78,16 +78,15 @@ def scream(what):
     """Screaming 'Viewing Tasks'... or 'Running Tasks'."""
 
     term_width = click.get_terminal_size()[0]
-    term_mid = term_width / 2
 
     if what == "run":
         click.echo("")
-        click.secho("RUNNING TASKS...", fg="green")
+        click.secho("RUNNING TASKS...", fg="green", bold=True)
         click.secho("-" * 18)
 
     elif what == "view":
         click.echo("")
-        click.secho("VIEWING TASKS...", fg="green")
+        click.secho("VIEWING TASKS...", fg="green", bold=True)
         click.secho("-" * 18)
 
 
