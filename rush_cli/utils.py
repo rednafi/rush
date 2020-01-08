@@ -3,6 +3,9 @@ import subprocess
 import sys
 
 import click
+from pygments import highlight
+from pygments.formatters import HtmlFormatter, TerminalFormatter
+from pygments.lexers import BashLexer
 
 
 def walk_up(bottom):
@@ -63,6 +66,26 @@ def beautify_skiptask_name(task_name):
     task_name = click.style(task_name, fg="blue")
     click.echo("")
     click.echo(task_name)
+
+
+def beautify_task_cmd(cmd: str):
+    """Highlighting the bash commands."""
+
+    click.echo((highlight(cmd, BashLexer(), TerminalFormatter())))
+
+
+def scream(what):
+    """Screaming 'Viewing Tasks'... or 'Running Tasks'."""
+
+    if what == "run":
+        click.echo("")
+        click.secho("RUNNING TASKS...", fg="green", bold=True)
+        click.secho("-" * 18)
+
+    elif what == "view":
+        click.echo("")
+        click.secho("VIEWING TASKS...", fg="green", bold=True)
+        click.secho("-" * 18)
 
 
 def find_shell_path(shell_name="bash"):

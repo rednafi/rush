@@ -1,5 +1,5 @@
 from rush_cli.prep_tasks import PrepTasks
-from rush_cli.utils import beautify_skiptask_name, run_task
+from rush_cli.utils import beautify_skiptask_name, run_task, scream
 
 
 class RunTasks(PrepTasks):
@@ -15,8 +15,9 @@ class RunTasks(PrepTasks):
 
     def run_all_tasks(self):
         cleaned_tasks = self.get_prepared_tasks()
-
+        scream(what="run")
         for task_name, task_chunk in cleaned_tasks.items():
+
             if not task_name.startswith("//"):
                 run_task(
                     task_chunk,
@@ -26,5 +27,3 @@ class RunTasks(PrepTasks):
                 )
             else:
                 beautify_skiptask_name(task_name)
-
-
