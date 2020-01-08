@@ -77,8 +77,6 @@ def beautify_task_cmd(cmd: str):
 def scream(what):
     """Screaming 'Viewing Tasks'... or 'Running Tasks'."""
 
-    term_width = click.get_terminal_size()[0]
-
     if what == "run":
         click.echo("")
         click.secho("RUNNING TASKS...", fg="green", bold=True)
