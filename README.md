@@ -3,7 +3,8 @@
 # Rush 🏃
 **A Minimalistic Bash Task Runner**
 
-![img](./img/rush-example.png)
+
+![img](./img/rush-run.png)
 
 **Run all your task automation **Bash commands** from a single `rushfile.yml` file.**
 </div>
@@ -52,7 +53,6 @@ task_3: |
 task_5: |
     # Running a bash script from rush
     ./script.sh
-
 ```
 
 ### Available Options
@@ -116,7 +116,13 @@ This should show:
     ```
     $ rush task_2 --no-deps
     ```
-    
+
+* **View tasks**
+    ```
+    $ rush task_5 task_6 task_7 --view-tasks
+    ```
+    ![img](./img/rush-view.png)
+
 ## Quirks
 
 * Rush runs all the commands using `/usr/bin/bash`. So shell specific syntax with other shebangs might throw error. In these cases, I encourage you to create dedicated shell scripts with proper shebang (`#!/usr/bin/env bash`) and add those as tasks in the rushfile.
