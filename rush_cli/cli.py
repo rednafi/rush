@@ -58,13 +58,13 @@ def entrypoint(
     if len(sys.argv) == 1:
         entrypoint.main(["-h"])
 
-    elif all and not filter_names:
+    elif all and not filter_names and not view_tasks:
         run_tasks_obj = RunTasks(
             show_outputs=hide_outputs, catch_errors=ignore_errors, no_deps=no_deps
         )
         run_tasks_obj.run_all_tasks()
 
-    elif filter_names:
+    elif filter_names and not view_tasks:
         run_tasks_obj = RunTasks(
             *filter_names,
             show_outputs=hide_outputs,
@@ -78,7 +78,7 @@ def entrypoint(
         views_obj.view_rushpath
 
     elif view_tasks:
-        views_obj = Views()
+        views_obj = Views(*filter_names)
         views_obj.view_tasks
 
     elif version:

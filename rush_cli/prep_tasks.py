@@ -114,4 +114,4 @@ class Views(PrepTasks):
 
 
 # obj = Views("task_2", "task_1")
-# obj.view_tasks()
+# obj.view_tasks

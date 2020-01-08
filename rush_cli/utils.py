@@ -65,6 +65,10 @@ def beautify_skiptask_name(task_name):
     click.echo(task_name)
 
 
+def beautify_task_cmd():
+    pass
+
+
 def find_shell_path(shell_name="bash"):
     """Finds out system's bash interpreter path"""
 
