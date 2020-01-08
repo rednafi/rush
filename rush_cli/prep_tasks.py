@@ -5,7 +5,7 @@ import click
 import pretty_errors
 
 from rush_cli.read_tasks import ReadTasks
-from rush_cli.utils import split_lines, strip_spaces
+from rush_cli.utils import split_lines, strip_spaces, beautify_task_name
 
 
 class PrepTasks(ReadTasks):
@@ -105,3 +105,13 @@ class Views(PrepTasks):
         click.echo("")
         click.secho(rushfile_path, fg="yellow")
 
+    @property
+    def view_tasks(self):
+        cleaned_tasks = self.get_prepared_tasks()
+        for k, v in cleaned_tasks.items():
+            beautify_task_name(k)
+            click.echo(v)
+
+
+# obj = Views("task_2", "task_1")
+# obj.view_tasks()

@@ -26,5 +26,3 @@ class RunTasks(PrepTasks):
                 )
             else:
                 beautify_skiptask_name(task_name)
-
-

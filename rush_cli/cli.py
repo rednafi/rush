@@ -34,15 +34,24 @@ VERSION = "0.4.0"
     "--ignore-errors", is_flag=True, default=True, help="Option to ignore errors"
 )
 @click.option(
-    "--path", is_flag=True, default=False, help="Show the absolute path of rushfile.yml"
+    "--path", is_flag=True, default=None, help="Show the absolute path of rushfile.yml"
 )
 @click.option(
     "--no-deps", is_flag=True, default=None, help="Do not run dependent tasks"
 )
+@click.option("--view-tasks", is_flag=True, default=None, help="View task commands")
 @click.option("--version", is_flag=True, default=None, help="Show rush version")
 @click.argument("filter_names", required=False, nargs=-1)
 def entrypoint(
-    *, filter_names, all, hide_outputs, ignore_errors, path, no_deps, version
+    *,
+    filter_names,
+    all,
+    hide_outputs,
+    ignore_errors,
+    path,
+    no_deps,
+    version,
+    view_tasks,
 ):
     """A Minimalistic Bash Task Runner"""
 
@@ -67,6 +76,10 @@ def entrypoint(
     elif path:
         views_obj = Views()
         views_obj.view_rushpath
+
+    elif view_tasks:
+        views_obj = Views()
+        views_obj.view_tasks
 
     elif version:
         click.secho(f"Rush version: {VERSION}", fg="green")
