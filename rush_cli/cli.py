@@ -31,7 +31,7 @@ VERSION = "0.4.1"
     help="Option to hide interactive output",
 )
 @click.option(
-    "--ignore-errors", is_flag=True, default=True, help="Option to ignore errors"
+    "--ignore-errors", is_flag=True, default=None, help="Option to ignore errors"
 )
 @click.option(
     "--path",
@@ -44,7 +44,7 @@ VERSION = "0.4.1"
     "--no-deps", is_flag=True, default=None, help="Do not run dependent tasks"
 )
 @click.option("--view-tasks", is_flag=True, default=None, help="View task commands")
-@click.option("--version", is_flag=True, default=None, help="Show rush version")
+@click.option("--version", "-v", is_flag=True, default=None, help="Show rush version")
 @click.argument("filter_names", required=False, nargs=-1)
 def entrypoint(
     *,
