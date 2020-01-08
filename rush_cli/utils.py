@@ -1,7 +1,9 @@
 import os
 import subprocess
 import sys
-
+from pygments import highlight
+from pygments.lexers import BashLexer
+# from pygments.formatters import BBCFormatter
 import click
 
 
@@ -65,8 +67,9 @@ def beautify_skiptask_name(task_name):
     click.echo(task_name)
 
 
-def beautify_task_cmd():
-    pass
+def beautify_task_cmd(task_chunk: str):
+    click.secho(task_chunk)
+
 
 
 def find_shell_path(shell_name="bash"):
