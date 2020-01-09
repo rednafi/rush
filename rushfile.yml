@@ -9,7 +9,7 @@ task_2: |
     echo "task2 is running"
 
 task_3: |
-    ls -a 
+    ls -a
     sudo apt-get install cowsay | head -n 0
     cowsay "Around the world in 80 days!"
 
@@ -31,5 +31,5 @@ task_6: |
     else
         echo "Running container in attached mode 2."
     fi
-
+    
 task_7:

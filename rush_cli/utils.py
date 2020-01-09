@@ -40,14 +40,6 @@ def walk_up(bottom):
         yield x
 
 
-def strip_spaces(st):
-    return st.rstrip()
-
-
-def split_lines(st):
-    return st.split("\n")
-
-
 def beautify_task_name(task_name):
     click.echo("")
     task_name = f"{task_name}:"
@@ -71,25 +63,29 @@ def beautify_skiptask_name(task_name):
 def beautify_task_cmd(cmd: str):
     """Highlighting the bash commands."""
 
-    click.echo((highlight(cmd, BashLexer(), TerminalFormatter())))
+    cmd = highlight(cmd, BashLexer(), TerminalFormatter())
+    cmd = cmd.rstrip()
+    click.echo(cmd)
 
 
 def scream(what):
     """Screaming 'Viewing Tasks'... or 'Running Tasks'."""
 
+    separator = "-" * 18
+
     if what == "run":
         click.echo("")
         click.secho("RUNNING TASKS...", fg="green", bold=True)
-        click.secho("-" * 18)
+        click.secho(separator)
 
     elif what == "view":
         click.echo("")
         click.secho("VIEWING TASKS...", fg="green", bold=True)
-        click.secho("-" * 18)
+        click.secho(separator)
 
 
 def find_shell_path(shell_name="bash"):
-    """Finds out system's bash interpreter path"""
+    """Finds out system's bash interpreter path."""
 
     if not os.name == "nt":
         cmd = ["which", "-a", shell_name]

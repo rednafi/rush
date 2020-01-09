@@ -31,6 +31,7 @@ class ReadTasks:
 
     def read_rushfile(self):
         rushfile = self.find_rushfile()
+
         try:
             with open(rushfile) as file:
                 yml_content = yaml.load(file, Loader=yaml.FullLoader)
