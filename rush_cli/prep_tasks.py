@@ -17,7 +17,7 @@ class PrepTasks(ReadTasks):
         self.no_deps = no_deps
 
     @staticmethod
-    def clean_tasks(yml_content):
+    def _clean_tasks(yml_content):
         """Splitting stringified tasks into into a list of individual tasks."""
 
         cleaned_tasks = OrderedDict()
@@ -79,7 +79,7 @@ class PrepTasks(ReadTasks):
         """Get the preprocessed task dict."""
 
         yml_content = self.read_rushfile()
-        cleaned_tasks = self.clean_tasks(yml_content)
+        cleaned_tasks = self._clean_tasks(yml_content)
 
         # replace placeholders and flatten
         for task_name, task_chunk in cleaned_tasks.items():
@@ -114,7 +114,3 @@ class Views(PrepTasks):
         for k, v in cleaned_tasks.items():
             beautify_task_name(k)
             beautify_task_cmd(v)
-
-
-# obj = Views("task_2", "task_1")
-# obj.view_tasks
