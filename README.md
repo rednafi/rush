@@ -125,4 +125,6 @@ This should show:
 
 ## Quirks
 
-* Rush runs all the commands using `/usr/bin/bash`. So shell specific syntax with other shebangs might throw error. In these cases, I encourage you to create dedicated shell scripts with proper shebang (`#!/usr/bin/env bash`) and add those as tasks in the rushfile.
+* Rush runs all the commands using `/usr/bin/bash`. So shell specific syntax with other shebangs might throw error.
+
+* If you are running Bash script from rush, use shebang (`#!/usr/bin/env bash`) 

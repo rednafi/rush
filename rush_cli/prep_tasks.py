@@ -5,13 +5,7 @@ import click
 import pretty_errors
 
 from rush_cli.read_tasks import ReadTasks
-from rush_cli.utils import (
-    beautify_task_cmd,
-    beautify_task_name,
-    scream,
-    split_lines,
-    strip_spaces,
-)
+from rush_cli.utils import beautify_task_cmd, beautify_task_name, scream
 
 
 class PrepTasks(ReadTasks):
@@ -23,15 +17,15 @@ class PrepTasks(ReadTasks):
         self.no_deps = no_deps
 
     @staticmethod
-    def clean_tasks(yml_content):
+    def _clean_tasks(yml_content):
         """Splitting stringified tasks into into a list of individual tasks."""
 
         cleaned_tasks = OrderedDict()
 
         for task_name, task_chunk in yml_content.items():
             if task_chunk:
-                task_chunk = strip_spaces(task_chunk)
-                task_chunk = split_lines(task_chunk)
+                task_chunk = task_chunk.rstrip()
+                task_chunk = task_chunk.split("\n")
                 cleaned_tasks[task_name] = task_chunk
             else:
                 cleaned_tasks[task_name] = ""
@@ -85,7 +79,8 @@ class PrepTasks(ReadTasks):
         """Get the preprocessed task dict."""
 
         yml_content = self.read_rushfile()
-        cleaned_tasks = self.clean_tasks(yml_content)
+        cleaned_tasks = self._clean_tasks(yml_content)
+
         # replace placeholders and flatten
         for task_name, task_chunk in cleaned_tasks.items():
             task_chunk = self._replace_placeholder_tasks(task_chunk, cleaned_tasks)
@@ -114,11 +109,8 @@ class Views(PrepTasks):
     @property
     def view_tasks(self):
         cleaned_tasks = self.get_prepared_tasks()
+
         scream(what="view")
         for k, v in cleaned_tasks.items():
             beautify_task_name(k)
             beautify_task_cmd(v)
-
-
-# obj = Views("task_2", "task_1")
-# obj.view_tasks
