@@ -2,11 +2,11 @@ import sys
 from collections import OrderedDict
 
 import click
+import networkx as nx
 import pretty_errors
 
 from rush_cli.read_tasks import ReadTasks
 from rush_cli.utils import beautify_task_cmd, beautify_task_name, scream
-import networkx as nx
 
 
 class PrepTasks(ReadTasks):
@@ -144,6 +144,9 @@ class Views(PrepTasks):
                 if cmd in yml_content.keys():
                     lst.append(cmd)
             deps[k] = lst
+
+        # filter dependencies
+        deps = self._filter_tasks(deps, *self.filter_names)
 
         return deps
 

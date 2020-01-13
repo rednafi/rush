@@ -4,7 +4,7 @@ import sys
 
 import click
 from pygments import highlight
-from pygments.formatters import HtmlFormatter, TerminalFormatter
+from pygments.formatters import TerminalFormatter
 from pygments.lexers import BashLexer
 
 
