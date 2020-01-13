@@ -17,6 +17,7 @@ task_3: |
     # Ignoring a task [task_4 will be ignored while execution]
     ls | grep "ce"
     ls > he.txt1
+    task_5
 
 task_5: |
     # Running a bash script from rush
@@ -31,5 +32,8 @@ task_6: |
     else
         echo "Running container in attached mode 2."
     fi
-    
-task_7:
+
+task_7: |
+    task_2
+    task_5
+    ls

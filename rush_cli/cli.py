@@ -10,7 +10,7 @@ from rush_cli.run_tasks import RunTasks
 # Don't strip colors.
 colorama.init(strip=False)
 
-VERSION = "0.4.2"
+VERSION = "0.4.3"
 
 
 @click.command(
@@ -44,6 +44,13 @@ VERSION = "0.4.2"
     "--no-deps", is_flag=True, default=None, help="Do not run dependent tasks"
 )
 @click.option("--view-tasks", is_flag=True, default=None, help="View task commands")
+@click.option(
+    "--list-tasks",
+    "-ls",
+    is_flag=True,
+    default=None,
+    help="List task commands with dependencies",
+)
 @click.option("--version", "-v", is_flag=True, default=None, help="Show rush version")
 @click.argument("filter_names", required=False, nargs=-1)
 def entrypoint(
@@ -56,19 +63,20 @@ def entrypoint(
     no_deps,
     version,
     view_tasks,
+    list_tasks,
 ):
     """A Minimalistic Bash Task Runner"""
 
     if len(sys.argv) == 1:
         entrypoint.main(["-h"])
 
-    elif all and not filter_names and not view_tasks:
+    elif all and not filter_names and not (view_tasks or list_tasks):
         run_tasks_obj = RunTasks(
             show_outputs=hide_outputs, catch_errors=ignore_errors, no_deps=no_deps
         )
         run_tasks_obj.run_all_tasks()
 
-    elif filter_names and not view_tasks:
+    elif filter_names and not (view_tasks or list_tasks):
         run_tasks_obj = RunTasks(
             *filter_names,
             show_outputs=hide_outputs,
@@ -84,6 +92,11 @@ def entrypoint(
     elif view_tasks:
         views_obj = Views(*filter_names)
         views_obj.view_tasks
+
+    elif list_tasks:
+        views_obj = Views(*filter_names)
+        views_obj.view_tasklist
+
 
     elif version:
         click.secho(f"Rush version: {VERSION}", fg="green")
