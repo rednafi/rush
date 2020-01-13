@@ -10,7 +10,7 @@ from rush_cli.run_tasks import RunTasks
 # Don't strip colors.
 colorama.init(strip=False)
 
-VERSION = "0.4.3"
+VERSION = "0.4.4"
 
 
 @click.command(
@@ -96,7 +96,6 @@ def entrypoint(
     elif list_tasks:
         views_obj = Views(*filter_names)
         views_obj.view_tasklist
-
 
     elif version:
         click.secho(f"Rush version: {VERSION}", fg="green")

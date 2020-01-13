@@ -66,7 +66,22 @@ $ rush --help
 ```
 This should show:
 
-![img](./img/rush-help.png)
+```
+Usage: rush [OPTIONS] [FILTER_NAMES]...
+
+  A Minimalistic Bash Task Runner
+
+Options:
+  -a, --all          Run all tasks
+  --hide-outputs     Option to hide interactive output
+  --ignore-errors    Option to ignore errors
+  -p, --path         Show the absolute path of rushfile.yml
+  --no-deps          Do not run dependent tasks
+  --view-tasks       View task commands
+  -ls, --list-tasks  List task commands with dependencies
+  -v, --version      Show rush version
+  -h, --help         Show this message and exit.
+```
 
 ### Running Tasks
 
@@ -110,7 +125,7 @@ This should show:
     $ rush task_2 --no-deps
     ```
 
-## Viewing Tasks
+### Viewing Tasks
 
 * **View absolute path of rushfile.yml**
     ```
