@@ -6,6 +6,7 @@ import pretty_errors
 
 from rush_cli.read_tasks import ReadTasks
 from rush_cli.utils import beautify_task_cmd, beautify_task_name, scream
+import networkx as nx
 
 
 class PrepTasks(ReadTasks):
@@ -103,7 +104,7 @@ class Views(PrepTasks):
     @property
     def view_rushpath(self):
         rushfile_path = self.find_rushfile()
-        click.echo("")
+        click.echo()
         click.secho(rushfile_path, fg="yellow")
 
     @property
@@ -114,3 +115,42 @@ class Views(PrepTasks):
         for k, v in cleaned_tasks.items():
             beautify_task_name(k)
             beautify_task_cmd(v)
+
+    @property
+    def view_tasklist(self):
+        deps = self._prep_deps()
+
+        scream(what="list")
+        click.echo()
+        for k, v in deps.items():
+            click.secho(" " + "-" + " " + k, fg="yellow")
+            for cmd in v:
+                click.echo(" " * 4 + "-" + " " + cmd)
+
+    def _prep_deps(self):
+        """Preparing a dependency dict from yml contents."""
+
+        # reading raw rushfile as a dict
+        yml_content = self.read_rushfile()
+
+        # splitting dict values by newlines
+        yml_content = {k: v.split("\n") for k, v in yml_content.items() if v}
+
+        # finding task dependencies
+        deps = {}
+        for k, v in yml_content.items():
+            lst = []
+            for cmd in v:
+                if cmd in yml_content.keys():
+                    lst.append(cmd)
+            deps[k] = lst
+
+        return deps
+
+    #     def _task_deps(self):
+    #         """Drawing dependency graph. Need to work on this."""
+
+    #         deps = self._prep_deps()
+    #         G = nx.OrderedDiGraph()
+    #         G.add_nodes_from(deps.keys())
+    #         G.add_edges_from([(k, cmd) for k, v in deps.items() for cmd in v])

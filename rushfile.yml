@@ -17,6 +17,7 @@ task_3: |
     # Ignoring a task [task_4 will be ignored while execution]
     ls | grep "ce"
     ls > he.txt1
+    task_5
 
 task_5: |
     # Running a bash script from rush

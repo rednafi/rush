@@ -41,7 +41,7 @@ def walk_up(bottom):
 
 
 def beautify_task_name(task_name):
-    click.echo("")
+    click.echo()
     task_name = f"{task_name}:"
     underline_len = len(task_name) + 3
     underline = "=" * underline_len
@@ -68,19 +68,33 @@ def beautify_task_cmd(cmd: str):
     click.echo(cmd)
 
 
+def beautify_task_list(task_name: str):
+    pass
+
+
 def scream(what):
     """Screaming 'Viewing Tasks'... or 'Running Tasks'."""
 
     separator = "-" * 18
 
     if what == "run":
-        click.echo("")
+        click.echo()
         click.secho("RUNNING TASKS...", fg="green", bold=True)
         click.secho(separator)
 
     elif what == "view":
-        click.echo("")
+        click.echo()
         click.secho("VIEWING TASKS...", fg="green", bold=True)
+        click.secho(separator)
+
+    elif what == "list":
+        click.echo()
+        click.secho("TASK LIST...", fg="green", bold=True)
+        click.secho(separator)
+
+    elif what == "dep":
+        click.echo()
+        click.secho("TASK DEPENDENCIES...", fg="green", bold=True)
         click.secho(separator)
 
 
