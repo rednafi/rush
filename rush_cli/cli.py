@@ -97,6 +97,5 @@ def entrypoint(
         views_obj = Views(*filter_names)
         views_obj.view_tasklist
 
-
     elif version:
         click.secho(f"Rush version: {VERSION}", fg="green")
