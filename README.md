@@ -104,6 +104,14 @@ This should show:
     ```
     $ rush --ignore-errors
     ```
+
+* **Do not run the dependent tasks**
+    ```
+    $ rush task_2 --no-deps
+    ```
+
+## Viewing Tasks
+
 * **View absolute path of rushfile.yml**
     ```
     $ rush --path
@@ -112,19 +120,20 @@ This should show:
     ```
     /home/rednafi/code/rush/rushfile.yml
     ```
-* **Do not run the dependent tasks**
-    ```
-    $ rush task_2 --no-deps
-    ```
 
-* **View tasks**
+* **View task commands**
     ```
     $ rush task_5 task_6 task_7 --view-tasks
     ```
     ![img](./img/rush-view.png)
 
+* **View task list with dependencies**
+    ```
+    $ rush -ls
+    ```
+
 ## Quirks
 
 * Rush runs all the commands using `/usr/bin/bash`. So shell specific syntax with other shebangs might throw error.
 
-* If you are running Bash script from rush, use shebang (`#!/usr/bin/env bash`) 
+* If you are running Bash script from rush, use shebang (`#!/usr/bin/env bash`)

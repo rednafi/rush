@@ -1,9 +1,0 @@
-filename, language, Python, comment, blank, total
-/home/redowan/code/rush/rush_cli/__init__.py, Python, 0, 0, 1, 1
-/home/redowan/code/rush/rush_cli/cli.py, Python, 75, 2, 13, 90
-/home/redowan/code/rush/rush_cli/prep_tasks.py, Python, 81, 9, 27, 117
-/home/redowan/code/rush/rush_cli/read_tasks.py, Python, 33, 3, 13, 49
-/home/redowan/code/rush/rush_cli/run_tasks.py, Python, 23, 1, 6, 30
-/home/redowan/code/rush/rush_cli/scraps.py, Python, 43, 10, 22, 75
-/home/redowan/code/rush/rush_cli/utils.py, Python, 86, 9, 35, 130
-Total, -, 341, 34, 117, 492
