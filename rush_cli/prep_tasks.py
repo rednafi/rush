@@ -123,9 +123,9 @@ class Views(PrepTasks):
         scream(what="list")
         click.echo()
         for k, v in deps.items():
-            click.secho(" " + "-" + " " + k, fg="yellow")
+            click.secho("-" + " " + k, fg="yellow")
             for cmd in v:
-                click.echo(" " * 4 + "-" + " " + cmd)
+                click.echo(" " * 2 + "-" + " " + cmd)
 
     def _prep_deps(self):
         """Preparing a dependency dict from yml contents."""
