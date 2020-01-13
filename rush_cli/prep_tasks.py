@@ -2,7 +2,6 @@ import sys
 from collections import OrderedDict
 
 import click
-import networkx as nx
 import pretty_errors
 
 from rush_cli.read_tasks import ReadTasks
