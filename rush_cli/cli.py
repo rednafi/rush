@@ -10,7 +10,7 @@ from rush_cli.run_tasks import RunTasks
 # Don't strip colors.
 colorama.init(strip=False)
 
-VERSION = "0.4.3"
+VERSION = "0.4.4"
 
 
 @click.command(
