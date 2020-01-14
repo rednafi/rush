@@ -28,7 +28,6 @@ def init_read_tasks(fix_getcwd):
     obj = ReadTasks(
         use_shell="/bin/bash", filename="rushfile.yml", current_dir=os.getcwd()
     )
-
     return obj
 
 
