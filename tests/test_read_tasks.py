@@ -3,14 +3,14 @@ from rush_cli.read_tasks import ReadTasks
 import yaml
 from mock import patch
 import os
-import py
 
 
 @pytest.fixture
 def fix_tmpdir(tmpdir):
     tmp_dir = tmpdir.mkdir("data")
     tmp_path = tmp_dir.join("rushfile.yml")
-    return str(tmp_dir), str(tmp_path)
+
+    return tmp_dir, tmp_path
 
 
 @pytest.fixture(scope="function")
@@ -76,5 +76,4 @@ def test_find_rushfile(init_read_tasks, fix_rushfile_content, fix_tmpdir):
 def test_read_rushfile(init_read_tasks, fix_rushfile_content):
     obj = init_read_tasks
     cont = fix_rushfile_content
-    obj.read_rushfile()
     assert cont == obj.read_rushfile()
