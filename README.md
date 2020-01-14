@@ -110,10 +110,6 @@ Options:
     ```
     $ rush --hide-outputs
     ```
-* **Run tasks without printing individual commands**
-    ```
-    $ rush task_1 task_2 --hide-commands
-    ```
 
 * **Run tasks ignoring errors**
     ```
