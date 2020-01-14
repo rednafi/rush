@@ -41,7 +41,7 @@ class ReadTasks:
             with open(rushfile) as file:
                 yml_content = yaml.load(file, Loader=yaml.FullLoader)
                 # make sure the task names are strings
-                # yml_content = {str(k): v for k, v in yml_content.items()}
+                yml_content = {str(k): v for k, v in yml_content.items()}
             return yml_content
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):
