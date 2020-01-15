@@ -7,7 +7,7 @@ from rush_cli.utils import (
     beautify_skiptask_name,
     beautify_task_cmd,
     scream,
-    find_shell_path
+    find_shell_path,
 )
 
 from click.testing import CliRunner
@@ -58,4 +58,3 @@ def test_scream(capsys):
     scream("list")
     captured = capsys.readouterr()
     assert captured.out == "\nTASK LIST...\n------------------\n"
-

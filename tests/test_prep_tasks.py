@@ -24,7 +24,7 @@ def test_clean_tasks(make_preptasks):
     ) == OrderedDict(
         [
             ("task_1", ['echo "task1 is running"']),
-            ("task_2", ["task_1", 'echo "task2 is running"',],),
+            ("task_2", ["task_1", 'echo "task2 is running"']),
         ]
     )
 
