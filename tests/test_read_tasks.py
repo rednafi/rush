@@ -6,7 +6,7 @@ from mock import patch
 from rush_cli.read_tasks import ReadTasks
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def make_tmpdir(tmpdir):
     tmp_dir = tmpdir.mkdir("data")
     tmp_path = tmp_dir.join("rushfile.yml")
@@ -14,7 +14,7 @@ def make_tmpdir(tmpdir):
     return tmp_dir, tmp_path
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def make_cwd(request, make_tmpdir):
     tmp_dir, tmp_path = make_tmpdir
     patched = patch("os.getcwd", return_value=tmp_dir)
@@ -22,7 +22,7 @@ def make_cwd(request, make_tmpdir):
     return patched.__enter__()
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def make_readtasks(make_cwd):
     """Initializing ReadTasks class."""
 
@@ -33,7 +33,7 @@ def make_readtasks(make_cwd):
 
 
 # find_rushfile
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def make_rushfile(make_tmpdir):
     """Creating dummy rushfile.yml."""
 
