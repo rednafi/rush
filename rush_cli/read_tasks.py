@@ -2,7 +2,6 @@ import os
 import sys
 
 import click
-import pretty_errors
 import yaml
 
 from rush_cli.utils import find_shell_path, walk_up
@@ -42,6 +41,7 @@ class ReadTasks:
                 yml_content = yaml.load(file, Loader=yaml.FullLoader)
                 # make sure the task names are strings
                 yml_content = {str(k): v for k, v in yml_content.items()}
+
             return yml_content
 
         except (yaml.scanner.ScannerError, yaml.parser.ParserError):

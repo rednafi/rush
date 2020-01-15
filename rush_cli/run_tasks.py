@@ -5,13 +5,11 @@ from rush_cli.utils import beautify_skiptask_name, run_task, scream
 class RunTasks(PrepTasks):
     """Class for running the cleaned, flattened & filtered tasks."""
 
-    def __init__(
-        self, *filter_names, show_outputs=True, catch_errors=True, no_deps=False
-    ):
+    def __init__(self, *args, show_outputs=True, catch_errors=True, **kwargs):
+        super().__init__(*args, **kwargs)
         self.show_outputs = show_outputs
         self.catch_errors = catch_errors
-        self.no_deps = no_deps
-        super().__init__(no_deps=self.no_deps, *filter_names)
+        self.no_deps = kwargs.get("no_deps", False)
 
     def run_all_tasks(self):
         cleaned_tasks = self.get_prepared_tasks()
