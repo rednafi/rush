@@ -2,7 +2,6 @@ import sys
 from collections import OrderedDict
 
 import click
-import pretty_errors
 
 from rush_cli.read_tasks import ReadTasks
 from rush_cli.utils import beautify_task_cmd, beautify_task_name, scream
@@ -11,9 +10,9 @@ from rush_cli.utils import beautify_task_cmd, beautify_task_name, scream
 class PrepTasks(ReadTasks):
     """Class for preprocessing tasks before running."""
 
-    def __init__(self, *filter_names, no_deps=False):
-        super().__init__()
-        self.filter_names = filter_names
+    def __init__(self, *args, no_deps=False, **kwargs):
+        super().__init__(**kwargs)
+        self.filter_names = args
         self.no_deps = no_deps
 
     @staticmethod
