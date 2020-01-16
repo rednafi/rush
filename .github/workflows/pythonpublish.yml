@@ -5,7 +5,7 @@ on:
     types: [published]
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -26,9 +26,6 @@ jobs:
       run: |
         pytest
 
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
     - name: Build and publish
       env:
         PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
