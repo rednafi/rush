@@ -203,6 +203,17 @@ pytest = ">=3.6"
 testing = ["fields", "hunter", "process-tests (2.0.2)", "six", "virtualenv"]
 
 [[package]]
+category = "dev"
+description = "A plugin to fake subprocess for pytest"
+name = "pytest-subprocess"
+optional = false
+python-versions = ">=3.4"
+version = "0.1.1"
+
+[package.dependencies]
+pytest = ">=4.0.0"
+
+[[package]]
 category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
@@ -243,7 +254,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pathlib2", "contextlib2", "unittest2"]
 
 [metadata]
-content-hash = "a8027554ab2f2a93f3ce68568b599b6e14c7befec9355f87fff7a30ae3dc56dd"
+content-hash = "e52a284527f202bb079e508b7e6cf5f3f1da4222e6a27fe30f6b91cb6437f3e2"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -343,6 +354,10 @@ pytest = [
 pytest-cov = [
     {file = "pytest-cov-2.8.1.tar.gz", hash = "sha256:cc6742d8bac45070217169f5f72ceee1e0e55b0221f54bcf24845972d3a47f2b"},
     {file = "pytest_cov-2.8.1-py2.py3-none-any.whl", hash = "sha256:cdbdef4f870408ebdbfeb44e63e07eb18bb4619fae852f6e760645fa36172626"},
+]
+pytest-subprocess = [
+    {file = "pytest-subprocess-0.1.1.tar.gz", hash = "sha256:f90893109088bbe4d97a9303182287c8f33dc0d94d7b2cf2535516e2343dff7b"},
+    {file = "pytest_subprocess-0.1.1-py3-none-any.whl", hash = "sha256:de9a89e4b209e1d533e2413d9803890728a37299e06ee0ccf2ea63c616d6a472"},
 ]
 pyyaml = [
     {file = "PyYAML-5.3-cp27-cp27m-win32.whl", hash = "sha256:940532b111b1952befd7db542c370887a8611660d2b9becff75d39355303d82d"},

@@ -1,19 +1,16 @@
 import pytest
-
 from rush_cli.utils import (
     walk_up,
-    beautify_task_name,
     beautify_task_name,
     beautify_skiptask_name,
     beautify_task_cmd,
     scream,
     find_shell_path,
+    run_task,
 )
 
-from click.testing import CliRunner
 
-
-@pytest.fixture(autouse=True)
+@pytest.fixture()
 def make_tmpdir(tmpdir):
     tmp_dir = tmpdir.mkdir("faka")
     return str(tmp_dir)
@@ -58,3 +55,15 @@ def test_scream(capsys):
     scream("list")
     captured = capsys.readouterr()
     assert captured.out == "\nTASK LIST...\n------------------\n"
+
+
+def test_run_task(capsys, fake_process):
+
+    fake_process.register_subprocess(["which", "-a", "bash"], stdout="/bin/bash")
+
+    fake_process.register_subprocess(
+        ["/bin/bash", "-c", "echo 'hello'"], stdout="echo hello"
+    )
+    run_task("echo 'hello'", "task_0")
+    captured = capsys.readouterr()
+    assert captured.out == "\ntask_0:\n==========\n"
