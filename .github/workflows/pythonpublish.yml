@@ -1,12 +1,14 @@
 name: Upload Python Package
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - v*
 
 jobs:
-  build-and-publish:
+  deploy:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
     steps:
     - uses: actions/checkout@master
     - uses: actions/setup-python@v1
@@ -21,10 +23,6 @@ jobs:
     - name: Install dependencies
       run: |
         poetry install
-
-    - name: Run the tests
-      run: |
-        pytest
 
     - name: Build and publish
       env:
