@@ -1,17 +1,12 @@
 name: Upload Python Package
 
 on:
-  push:
-    branches:
-      - master
-
-    tags:
-      - v*
+  release:
+    types: [published]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
     steps:
     - uses: actions/checkout@master
     - uses: actions/setup-python@v1
@@ -27,6 +22,13 @@ jobs:
       run: |
         poetry install
 
+    - name: Run the tests
+      run: |
+        pytest
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
     - name: Build and publish
       env:
         PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}

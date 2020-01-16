@@ -6,11 +6,12 @@ from click_help_colors import HelpColorsCommand
 
 from rush_cli.prep_tasks import Views
 from rush_cli.run_tasks import RunTasks
+from rush_cli import __version__
 
 # Don't strip colors.
 colorama.init(strip=False)
 
-VERSION = "0.4.6"
+VERSION = __version__
 
 
 @click.command(
