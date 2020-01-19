@@ -26,13 +26,12 @@ jobs:
 
       - name: Install dependencies
         run: |
+          python3 -m venv venv
+          source venv/bin/activate
           poetry install
 
       - name: Run the tests
         run: |
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install pytest
           pytest
 
       - name: Build and publish
