@@ -24,16 +24,12 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install dependencies
+      - name: Run pytest
         run: |
           python3 -m venv venv
           source venv/bin/activate
           poetry install
-
-      - name: Run pytest
-        uses: cclauss/GitHub-Action-for-pytest@master
-        with:
-          args: pytest
+          poetry run pytest
 
       - name: Build and publish
         env:
