@@ -95,9 +95,9 @@ class PrepTasks(ReadTasks):
 class Views(PrepTasks):
     """View ad hoc tasks."""
 
-    def __init__(self, *filter_names):
-        super().__init__(*filter_names)
-        self.filter_names = filter_names
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.filter_names = args
 
     @property
     def view_rushpath(self):
