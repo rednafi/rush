@@ -30,9 +30,10 @@ jobs:
           source venv/bin/activate
           poetry install
 
-      - name: Run the tests
-        run: |
-          pytest
+      - name: Run pytest
+        uses: cclauss/GitHub-Action-for-pytest@master
+        with:
+          args: pytest
 
       - name: Build and publish
         env:
