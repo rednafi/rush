@@ -9,7 +9,7 @@ homepage = "https://github.com/rednafi/rush"
 keywords = ["cli", "bash", "task", "manager", "runner"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.5"
 click = "^7.0"
 colorama = "^0.4.3"
 pyyaml = "^5.2"
