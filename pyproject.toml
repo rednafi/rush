@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "rush-cli"
-version = "0.5.0"
+version = "0.5.1"
 description = "♆ Rush: A Minimalistic Bash Utility"
 authors = ["rednafi <redowan.nafi@gmail.com>"]
 license = "MIT"
 readme = 'README.md'
-homepage = "https://github.com/rednafi/rush-cli"
+homepage = "https://github.com/rednafi/rush"
 keywords = ['cli', 'bash', 'task', 'manager', 'runner']
 
 [tool.poetry.dependencies]
