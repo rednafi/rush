@@ -79,6 +79,7 @@ Options:
   --no-deps          Do not run dependent tasks
   --view-tasks       View task commands
   -ls, --list-tasks  List task commands with dependencies
+  --no-warns         Do not show warnings
   -v, --version      Show rush version
   -h, --help         Show this message and exit.
 ```
