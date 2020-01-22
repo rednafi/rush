@@ -115,7 +115,13 @@ def find_shell_path(shell_name="bash"):
         cmd = ["where", shell_name]
 
     try:
-        c = subprocess.run(cmd, universal_newlines=True, check=True,)
+        c = subprocess.run(
+            cmd,
+            universal_newlines=True,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
         output = c.stdout.split("\n")
         output = [_ for _ in output if _]
 
