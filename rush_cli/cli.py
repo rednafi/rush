@@ -101,5 +101,3 @@ def entrypoint(
             no_warns=no_warns,
         )
         run_tasks_obj.run_all_tasks()
-
-
