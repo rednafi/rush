@@ -15,7 +15,7 @@ class ReadTasks:
         use_shell=find_shell_path("bash"),
         filename="rushfile.yml",
         current_dir=os.getcwd(),
-        no_warns=False
+        no_warns=False,
     ):
         self.use_shell = use_shell
         self.filename = filename

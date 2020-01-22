@@ -149,7 +149,6 @@ class Views(PrepTasks):
 
         return deps
 
-
     #     def _task_deps(self):
     #         """Drawing dependency graph. Need to work on this."""
 
