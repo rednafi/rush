@@ -48,7 +48,7 @@ def check_pipe(yml_content):
         if task_chunk:
             if not task_chunk.endswith("\n"):
                 click.secho(
-                    f"Warning: Pipe (|) after {task_name} is missing.", fg="yellow"
+                    f"Warning: Pipe (|) after {task_name} is missing", fg="yellow"
                 )
 
 
@@ -67,7 +67,7 @@ def beautify_task_name(task_name):
 
 def beautify_skiptask_name(task_name):
     task_name = f"=> Ignoring task {task_name}"
-    task_name = click.style(task_name, fg="blue")
+    task_name = click.style(task_name, fg="cyan")
     click.echo("")
     click.echo(task_name)
 

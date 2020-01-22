@@ -9,10 +9,10 @@ task_2: |
     task_1
     echo "task2 is running"
 
-task_3: 
+task_3: |
     ls -a
-    # sudo apt-get install cowsay | head -n 0
-    # cowsay "Around the world in 80 days!"
+    sudo apt-get install cowsay | head -n 0
+    cowsay "Around the world in 80 days!"
 
 //task_4: |
     # Ignoring a task [task_4 will be ignored while execution]

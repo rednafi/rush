@@ -20,20 +20,16 @@ VERSION = __version__
     ),
     cls=HelpColorsCommand,
     help_headers_color="yellow",
-    help_options_color="green",
+    help_options_color="cyan",
 )
-@click.option(
-    "--all", "-a", is_flag=True, default=None, multiple=True, help="Run all tasks"
-)
+@click.option("--all", "-a", is_flag=True, multiple=True, help="Run all tasks")
 @click.option(
     "--hide-outputs",
     is_flag=True,
     default=True,
     help="Option to hide interactive output",
 )
-@click.option(
-    "--ignore-errors", is_flag=True, default=None, help="Option to ignore errors"
-)
+@click.option("--ignore-errors", is_flag=True, help="Option to ignore errors")
 @click.option(
     "--path",
     "-p",
@@ -41,10 +37,8 @@ VERSION = __version__
     default=None,
     help="Show the absolute path of rushfile.yml",
 )
-@click.option(
-    "--no-deps", is_flag=True, default=None, help="Do not run dependent tasks"
-)
-@click.option("--view-tasks", is_flag=True, default=None, help="View task commands")
+@click.option("--no-deps", is_flag=True, help="Do not run dependent tasks")
+@click.option("--view-tasks", is_flag=True, help="View task commands")
 @click.option(
     "--list-tasks",
     "-ls",
@@ -52,7 +46,7 @@ VERSION = __version__
     default=None,
     help="List task commands with dependencies",
 )
-@click.option("--version", "-v", is_flag=True, default=None, help="Show rush version")
+@click.option("--version", "-v", is_flag=True, help="Show rush version")
 @click.argument("filter_names", required=False, nargs=-1)
 def entrypoint(
     *,
@@ -66,25 +60,10 @@ def entrypoint(
     view_tasks,
     list_tasks,
 ):
-    """A Minimalistic Bash Task Runner"""
+    """♆ Rush: A Minimalistic Bash Utility"""
 
     if len(sys.argv) == 1:
         entrypoint.main(["-h"])
-
-    elif all and not filter_names and not (view_tasks or list_tasks):
-        run_tasks_obj = RunTasks(
-            show_outputs=hide_outputs, catch_errors=ignore_errors, no_deps=no_deps
-        )
-        run_tasks_obj.run_all_tasks()
-
-    elif filter_names and not (view_tasks or list_tasks):
-        run_tasks_obj = RunTasks(
-            *filter_names,
-            show_outputs=hide_outputs,
-            catch_errors=ignore_errors,
-            no_deps=no_deps,
-        )
-        run_tasks_obj.run_all_tasks()
 
     elif path:
         views_obj = Views()
@@ -100,3 +79,18 @@ def entrypoint(
 
     elif version:
         click.secho(f"Rush version: {VERSION}", fg="green")
+
+    elif filter_names:
+        run_tasks_obj = RunTasks(
+            *filter_names,
+            show_outputs=hide_outputs,
+            catch_errors=ignore_errors,
+            no_deps=no_deps,
+        )
+        run_tasks_obj.run_all_tasks()
+
+    elif all:
+        run_tasks_obj = RunTasks(
+            show_outputs=hide_outputs, catch_errors=ignore_errors, no_deps=no_deps
+        )
+        run_tasks_obj.run_all_tasks()
