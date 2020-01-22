@@ -68,9 +68,13 @@ class PrepTasks(ReadTasks):
             try:
                 filtered_tasks = {k: cleaned_tasks[k] for k in filter_names}
                 return filtered_tasks
+
             except KeyError:
+                not_found_tasks = [
+                    k for k in filter_names if k not in cleaned_tasks.keys()
+                ]
                 click.secho(
-                    f"Error: Tasks {list(filter_names)} do not exist.", fg="magenta"
+                    f"Error: Tasks {not_found_tasks} do not exist.", fg="magenta"
                 )
                 sys.exit(1)
         else:

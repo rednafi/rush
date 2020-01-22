@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "rush-cli"
-version = "0.5.2"
+version = "0.5.3"
 description = "♆ Rush: A Minimalistic Bash Utility"
 authors = ["rednafi <redowan.nafi@gmail.com>"]
 license = "MIT"
-readme = 'README.md'
+readme = "README.md"
 homepage = "https://github.com/rednafi/rush"
-keywords = ['cli', 'bash', 'task', 'manager', 'runner']
+keywords = ["cli", "bash", "task", "manager", "runner"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -17,7 +17,7 @@ pygments = "^2.5.2"
 click_help_colors = "^0.6"
 
 [tool.poetry.scripts]
-rush = 'rush_cli.cli:entrypoint'
+rush = "rush_cli.cli:entrypoint"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.2"
