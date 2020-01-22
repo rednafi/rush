@@ -102,8 +102,7 @@ class Views(PrepTasks):
     @property
     def view_rushpath(self):
         rushfile_path = self.find_rushfile()
-        click.echo()
-        click.secho(rushfile_path, fg="yellow")
+        click.secho(rushfile_path, fg="cyan")
 
     @property
     def view_tasks(self):

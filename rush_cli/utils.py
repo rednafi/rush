@@ -40,6 +40,18 @@ def walk_up(bottom):
         yield x
 
 
+def check_pipe(yml_content):
+    """Check if there is a pipe ('|') after each task name.
+    Raise exception if pipe is missing."""
+
+    for task_name, task_chunk in yml_content.items():
+        if task_chunk:
+            if not task_chunk.endswith("\n"):
+                click.secho(
+                    f"Warning: Pipe (|) after {task_name} is missing.", fg="yellow"
+                )
+
+
 def beautify_task_name(task_name):
     click.echo()
     task_name = f"{task_name}:"
@@ -66,10 +78,6 @@ def beautify_task_cmd(cmd: str):
     cmd = highlight(cmd, BashLexer(), TerminalFormatter())
     cmd = cmd.rstrip()
     click.echo(cmd)
-
-
-def beautify_task_list(task_name: str):
-    pass
 
 
 def scream(what):

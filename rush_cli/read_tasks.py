@@ -4,7 +4,7 @@ import sys
 import click
 import yaml
 
-from rush_cli.utils import find_shell_path, walk_up
+from rush_cli.utils import find_shell_path, walk_up, check_pipe
 
 
 class ReadTasks:
@@ -35,12 +35,17 @@ class ReadTasks:
         sys.exit(1)
 
     def read_rushfile(self):
+
         rushfile = self.find_rushfile()
         try:
             with open(rushfile) as file:
-                yml_content = yaml.load(file, Loader=yaml.FullLoader)
+                yml_content = yaml.load(file, Loader=yaml.SafeLoader)
+
                 # make sure the task names are strings
                 yml_content = {str(k): v for k, v in yml_content.items()}
+
+                # if pipe is missing then raise exception
+                check_pipe(yml_content)
 
             return yml_content
 
@@ -51,3 +56,9 @@ class ReadTasks:
         except AttributeError:
             click.secho("Error: rushfile.yml is empty", fg="magenta")
             sys.exit(1)
+
+
+# from pprint import pprint
+
+# obj = ReadTasks()
+# pprint(obj.read_rushfile()["//task_4"])
