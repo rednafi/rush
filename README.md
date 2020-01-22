@@ -1,7 +1,7 @@
 <div align="center">
 
 # Rush 🏃
-**A Minimalistic Bash Task Runner**
+**A Minimalistic Bash Utility**
 
 
 ![img](./img/rush-run.png)
@@ -69,7 +69,7 @@ This should show:
 ```
 Usage: rush [OPTIONS] [FILTER_NAMES]...
 
-  A Minimalistic Bash Task Runner
+  ♆ Rush: A Minimalistic Bash Utility
 
 Options:
   -a, --all          Run all tasks
