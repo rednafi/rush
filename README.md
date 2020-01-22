@@ -1,7 +1,7 @@
 <div align="center">
 
 # Rush 🏃
-**A Minimalistic Bash Utility**
+**♆ Rush: A Minimalistic Bash Utility**
 
 
 ![img](./img/rush-run.png)
