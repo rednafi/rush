@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rush-cli"
-version = "0.5.4"
+version = "0.5.5"
 description = "♆ Rush: A Minimalistic Bash Utility"
 authors = ["rednafi <redowan.nafi@gmail.com>"]
 license = "MIT"
