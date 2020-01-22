@@ -40,13 +40,13 @@ def walk_up(bottom):
         yield x
 
 
-def check_pipe(yml_content):
+def check_pipe(yml_content, no_warns=False):
     """Check if there is a pipe ('|') after each task name.
     Raise exception if pipe is missing."""
 
     for task_name, task_chunk in yml_content.items():
         if task_chunk:
-            if not task_chunk.endswith("\n"):
+            if not task_chunk.endswith("\n") and not no_warns:
                 click.secho(
                     f"Warning: Pipe (|) after {task_name} is missing", fg="yellow"
                 )

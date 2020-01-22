@@ -4,6 +4,7 @@ import click
 import colorama
 from click_help_colors import HelpColorsCommand
 
+from rush_cli.read_tasks import ReadTasks
 from rush_cli.prep_tasks import Views
 from rush_cli.run_tasks import RunTasks
 from rush_cli import __version__
@@ -46,6 +47,7 @@ VERSION = __version__
     default=None,
     help="List task commands with dependencies",
 )
+@click.option("--no-warns", is_flag=True, help="Do not show warnings")
 @click.option("--version", "-v", is_flag=True, help="Show rush version")
 @click.argument("filter_names", required=False, nargs=-1)
 def entrypoint(
@@ -59,6 +61,7 @@ def entrypoint(
     version,
     view_tasks,
     list_tasks,
+    no_warns,
 ):
     """♆ Rush: A Minimalistic Bash Utility"""
 
@@ -78,7 +81,7 @@ def entrypoint(
         views_obj.view_tasklist
 
     elif version:
-        click.secho(f"Rush version: {VERSION}", fg="green")
+        click.secho(f"Rush version: {VERSION}", fg="cyan")
 
     elif filter_names:
         run_tasks_obj = RunTasks(
@@ -86,11 +89,15 @@ def entrypoint(
             show_outputs=hide_outputs,
             catch_errors=ignore_errors,
             no_deps=no_deps,
+            no_warns=no_warns,
         )
         run_tasks_obj.run_all_tasks()
 
     elif all:
         run_tasks_obj = RunTasks(
-            show_outputs=hide_outputs, catch_errors=ignore_errors, no_deps=no_deps
+            show_outputs=hide_outputs,
+            catch_errors=ignore_errors,
+            no_deps=no_deps,
+            no_warns=no_warns,
         )
         run_tasks_obj.run_all_tasks()

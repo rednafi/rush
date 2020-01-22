@@ -15,10 +15,12 @@ class ReadTasks:
         use_shell=find_shell_path("bash"),
         filename="rushfile.yml",
         current_dir=os.getcwd(),
+        no_warns=False
     ):
         self.use_shell = use_shell
         self.filename = filename
         self.current_dir = current_dir
+        self.no_warns = no_warns
 
     def find_rushfile(self, max_depth=4, topdown=False):
         """Returns the path of a rushfile in parent directories."""
@@ -45,7 +47,7 @@ class ReadTasks:
                 yml_content = {str(k): v for k, v in yml_content.items()}
 
                 # if pipe is missing then raise exception
-                check_pipe(yml_content)
+                check_pipe(yml_content, no_warns=self.no_warns)
 
             return yml_content
 

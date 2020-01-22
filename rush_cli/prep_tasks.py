@@ -69,7 +69,9 @@ class PrepTasks(ReadTasks):
                 filtered_tasks = {k: cleaned_tasks[k] for k in filter_names}
                 return filtered_tasks
             except KeyError:
-                click.secho("Error: Task does not exist.", fg="magenta")
+                click.secho(
+                    f"Error: Tasks {list(filter_names)} do not exist.", fg="magenta"
+                )
                 sys.exit(1)
         else:
             return cleaned_tasks
@@ -146,6 +148,7 @@ class Views(PrepTasks):
         deps = self._filter_tasks(deps, *self.filter_names)
 
         return deps
+
 
     #     def _task_deps(self):
     #         """Drawing dependency graph. Need to work on this."""
