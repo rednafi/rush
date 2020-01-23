@@ -153,9 +153,10 @@ Options:
 
 ## Issues
 * Rush works better with python 3.7 and up
-* If your have installed `Rush` globally and it throws a runtime error you can solve it via adding the following variables to your `~./bashrc`:
+* If your have installed `Rush` globally and it throws a runtime error, you can try to solve it via adding the following variables to your `~./bashrc`:
 
 ```
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 ```
+You can find more information about the issue and why it's a non-trivial problem [here.](http://click.palletsprojects.com/en/7.x/python3/#python-3-surrogate-handling)
