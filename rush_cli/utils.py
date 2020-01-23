@@ -129,6 +129,8 @@ def find_shell_path(shell_name="bash"):
             if path == f"/bin/{shell_name}":
                 return path
 
+        subprocess.run([cmd, "-c", "export LC_ALL=C.UTF-8 && export LANG=C.UTF-8"])
+
     except subprocess.CalledProcessError:
         click.secho("Error: Bash not found. Install Bash to use Rush.", fg="magenta")
         sys.exit(1)
