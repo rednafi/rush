@@ -149,3 +149,13 @@ Options:
 * Rush runs all the commands using `/usr/bin/bash`. So shell specific syntax with other shebangs might throw error.
 
 * If you are running Bash script from rush, use shebang (`#!/usr/bin/env bash`)
+
+
+## Issues
+* Rush works better with python 3.7 and up
+* If your have installed `Rush` globally and it throws a runtime error you can solve it via adding the following variables to your `~./bashrc`:
+
+```
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+```
