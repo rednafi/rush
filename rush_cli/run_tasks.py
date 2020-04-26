@@ -1,5 +1,7 @@
 from rush_cli.prep_tasks import PrepTasks
-from rush_cli.utils import beautify_skiptask_name, run_task, scream
+from rush_cli.utils import beautify_skiptask_name
+from rush_cli.utils import run_task
+from rush_cli.utils import scream
 
 
 class RunTasks(PrepTasks):
@@ -12,7 +14,7 @@ class RunTasks(PrepTasks):
         self.no_deps = kwargs.get("no_deps", False)
 
     def run_all_tasks(self):
-        cleaned_tasks = self.get_prepared_tasks()
+        cleaned_tasks = super().get_prepared_tasks()
         scream(what="run")
         for task_name, task_chunk in cleaned_tasks.items():
 

@@ -143,7 +143,7 @@ def run_task(task: str, task_name: str, interactive=True, catch_errors=True):
 
     beautify_task_name(task_name)
     try:
-        process = subprocess.run(
+        subprocess.run(
             [use_shell, "-c", task],
             stdin=std_in,
             stdout=std_out,

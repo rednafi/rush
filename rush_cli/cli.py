@@ -4,10 +4,10 @@ import click
 import colorama
 from click_help_colors import HelpColorsCommand
 
-from rush_cli.read_tasks import ReadTasks
-from rush_cli.prep_tasks import Views
-from rush_cli.run_tasks import RunTasks
 from rush_cli import __version__
+from rush_cli.prep_tasks import Views
+from rush_cli.read_tasks import ReadTasks
+from rush_cli.run_tasks import RunTasks
 
 # Don't strip colors.
 colorama.init(strip=False)

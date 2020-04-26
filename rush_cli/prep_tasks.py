@@ -4,7 +4,9 @@ from collections import OrderedDict
 import click
 
 from rush_cli.read_tasks import ReadTasks
-from rush_cli.utils import beautify_task_cmd, beautify_task_name, scream
+from rush_cli.utils import beautify_task_cmd
+from rush_cli.utils import beautify_task_name
+from rush_cli.utils import scream
 
 
 class PrepTasks(ReadTasks):
@@ -83,7 +85,7 @@ class PrepTasks(ReadTasks):
     def get_prepared_tasks(self):
         """Get the preprocessed task dict."""
 
-        yml_content = self.read_rushfile()
+        yml_content = super().read_rushfile()
         cleaned_tasks = self._clean_tasks(yml_content)
 
         # replace placeholders and flatten
@@ -152,11 +154,3 @@ class Views(PrepTasks):
         deps = self._filter_tasks(deps, *self.filter_names)
 
         return deps
-
-    #     def _task_deps(self):
-    #         """Drawing dependency graph. Need to work on this."""
-
-    #         deps = self._prep_deps()
-    #         G = nx.OrderedDiGraph()
-    #         G.add_nodes_from(deps.keys())
-    #         G.add_edges_from([(k, cmd) for k, v in deps.items() for cmd in v])

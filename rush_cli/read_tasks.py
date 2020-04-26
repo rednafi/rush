@@ -4,7 +4,9 @@ import sys
 import click
 import yaml
 
-from rush_cli.utils import find_shell_path, walk_up, check_pipe
+from rush_cli.utils import check_pipe
+from rush_cli.utils import find_shell_path
+from rush_cli.utils import walk_up
 
 
 class ReadTasks:

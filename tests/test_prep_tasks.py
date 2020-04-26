@@ -1,11 +1,11 @@
-import os
+from collections import OrderedDict
 
 import pytest
-
-from rush_cli.prep_tasks import PrepTasks, Views
-from collections import OrderedDict
-from mock import patch
 import yaml
+from mock import patch
+
+from rush_cli.prep_tasks import PrepTasks
+from rush_cli.prep_tasks import Views
 
 
 @pytest.fixture

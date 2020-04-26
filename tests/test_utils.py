@@ -1,13 +1,11 @@
 import pytest
-from rush_cli.utils import (
-    walk_up,
-    beautify_task_name,
-    beautify_skiptask_name,
-    beautify_task_cmd,
-    scream,
-    find_shell_path,
-    run_task,
-)
+
+from rush_cli.utils import beautify_skiptask_name
+from rush_cli.utils import beautify_task_cmd
+from rush_cli.utils import beautify_task_name
+from rush_cli.utils import run_task
+from rush_cli.utils import scream
+from rush_cli.utils import walk_up
 
 
 @pytest.fixture()
