@@ -1,40 +1,39 @@
-# # rushfile.yml
+# rushfile.yml
 
-# task_1: |
-#     echo "task1 is running"
+task_1: |
+    echo "task1 is running"
 
+task_2: |
+    # Task chaining [task_1 is a dependency of task_2]
+    task_1
+    echo "task2 is running"
 
-# task_2: |
-#     # Task chaining [task_1 is a dependency of task_2]
-#     task_1
-#     echo "task2 is running"
+task_3: |
+    ls -a
+    sudo apt-get install cowsay | head -n 0
+    cowsay "Around the world in 80 days!"
 
-# task_3: |
-#     ls -a
-#     sudo apt-get install cowsay | head -n 0
-#     cowsay "Around the world in 80 days!"
+//task_4: |
+    # Ignoring a task [task_4 will be ignored while execution]
+    ls | grep "ce"
+    ls > he.txt1
+    task_5
 
-# //task_4: |
-#     # Ignoring a task [task_4 will be ignored while execution]
-#     ls | grep "ce"
-#     ls > he.txt1
-#     task_5
+task_5: |
+    # Running a bash script from rush
+    ./script.sh
 
-# task_5: |
-#     # Running a bash script from rush
-#     ./script.sh
+task_6: |
+    read -p 'Want to deploy docker container in detached mode? (y/n):' daemon
+    if [[ $daemon=="y" ]]; then
+        echo "Running container in detached mode."
+    elif [[ $daemon=="n" ]]; then
+        echo "Running container in attached mode."
+    else
+        echo "Running container in attached mode 2."
+    fi
 
-# task_6: |
-#     read -p 'Want to deploy docker container in detached mode? (y/n):' daemon
-#     if [[ $daemon=="y" ]]; then
-#         echo "Running container in detached mode."
-#     elif [[ $daemon=="n" ]]; then
-#         echo "Running container in attached mode."
-#     else
-#         echo "Running container in attached mode 2."
-#     fi
-
-# task_7: |
-#     task_2
-#     task_5
-#     ls
+task_7: |
+    task_2
+    task_5
+    ls
